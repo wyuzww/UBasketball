@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ethan.com.ubasketball.fragment.ClockFragment;
 import ethan.com.ubasketball.fragment.MainFragment;
 import ethan.com.ubasketball.fragment.SearchFragment;
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ClockFragment clockFragment;
     private SearchFragment searchFragment;
     private UserFragment userFragment;
+    //管理Fragmenty的图标和字体
+    private List<TextView> tv_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         initUI();
+        init();
     }
 
 
@@ -60,13 +66,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_search.setOnClickListener(this);
         txt_clock.setOnClickListener(this);
 
+    }
+
+    private void init() {
+        tv_list = new ArrayList<>();
+        tv_list.add(txt_main);
+        tv_list.add(txt_clock);
+        tv_list.add(txt_search);
+        tv_list.add(txt_user);
+
+        //选中第一页
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         mainFragment = new MainFragment();
         transaction.add(R.id.main_fragment_container, mainFragment);
         transaction.commit();
-
-        txt_main.setSelected(true);
+        changeFragmentSelect(0);
     }
 
     @Override
@@ -78,8 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
 
             case R.id.txt_main:
-                reTxtSelect();
-                txt_main.setSelected(true);
+                changeFragmentSelect(0);
                 if (mainFragment == null) {
                     mainFragment = new MainFragment();
                     transaction.add(R.id.main_fragment_container, mainFragment);
@@ -88,8 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.txt_clock:
-                reTxtSelect();
-                txt_clock.setSelected(true);
+                changeFragmentSelect(1);
                 if (clockFragment == null) {
                     clockFragment = new ClockFragment();
                     transaction.add(R.id.main_fragment_container, clockFragment);
@@ -98,8 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.txt_search:
-                reTxtSelect();
-                txt_search.setSelected(true);
+                changeFragmentSelect(2);
                 if (searchFragment == null) {
                     searchFragment = new SearchFragment();
                     transaction.add(R.id.main_fragment_container, searchFragment);
@@ -108,8 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.txt_user:
-                reTxtSelect();
-                txt_user.setSelected(true);
+                changeFragmentSelect(3);
                 if (userFragment == null) {
                     userFragment = new UserFragment();
                     transaction.add(R.id.main_fragment_container, userFragment);
@@ -119,17 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
-
         transaction.commit();
 
-    }
-
-    //初始化底部菜单选择状态
-    private void reTxtSelect() {
-        txt_main.setSelected(false);
-        txt_clock.setSelected(false);
-        txt_search.setSelected(false);
-        txt_user.setSelected(false);
     }
 
     //隐藏所有Fragment
@@ -147,4 +149,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             transaction.hide(userFragment);
         }
     }
+
+    //管理Fragmenty的图标和字体
+    private void changeFragmentSelect(int index) {
+        for (int i = 0; i < tv_list.size(); i++) {
+            if (index == i) {
+                tv_list.get(i).setTextColor(getResources().getColor(R.color.textSelectColor));
+                tv_list.get(i).setSelected(true);
+            } else {
+                tv_list.get(i).setTextColor(getResources().getColor(R.color.textColor));
+                tv_list.get(i).setSelected(false);
+            }
+        }
+    }
+
+
+
 }

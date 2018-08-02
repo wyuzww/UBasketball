@@ -9,4 +9,6 @@
     <color name="fragmentcolor">#F1F1F1</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="textColor">#8a8a8a</color>
+    <color name="textSelectColor">#1296db</color>
 </resources>

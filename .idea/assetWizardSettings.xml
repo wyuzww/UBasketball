@@ -95,8 +95,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_ccollection" />
-                            <entry key="sourceFile" value="E:\图标icon\UBasketball素材\ccollection.svg" />
+                            <entry key="outputName" value="ic_search" />
+                            <entry key="sourceFile" value="E:\图标icon\UBasketball素材\search.svg" />
                           </map>
                         </option>
                       </PersistentState>
