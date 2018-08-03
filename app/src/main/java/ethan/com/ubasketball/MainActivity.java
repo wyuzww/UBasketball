@@ -17,6 +17,7 @@ import ethan.com.ubasketball.fragment.ClockFragment;
 import ethan.com.ubasketball.fragment.MainFragment;
 import ethan.com.ubasketball.fragment.SearchFragment;
 import ethan.com.ubasketball.fragment.UserFragment;
+import ethan.com.ubasketball.util.ActivityCollector;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initUI();
         init();
+
+        ActivityCollector.addActivity(this);
     }
 
 
@@ -163,6 +166,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
 }

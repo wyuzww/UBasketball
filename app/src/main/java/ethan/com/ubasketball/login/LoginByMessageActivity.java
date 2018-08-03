@@ -1,4 +1,4 @@
-package ethan.com.ubasketball;
+package ethan.com.ubasketball.login;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import ethan.com.ubasketball.R;
+import ethan.com.ubasketball.util.ActivityCollector;
 
 public class LoginByMessageActivity extends AppCompatActivity implements View.OnClickListener {
     private Button backButton;
@@ -24,6 +27,8 @@ public class LoginByMessageActivity extends AppCompatActivity implements View.On
         }
 
         init();
+
+        ActivityCollector.addActivity(this);
     }
 
     private void init() {
@@ -38,5 +43,11 @@ public class LoginByMessageActivity extends AppCompatActivity implements View.On
                 startActivity(new Intent(LoginByMessageActivity.this, LoginByPasswordActivity.class));
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
     }
 }

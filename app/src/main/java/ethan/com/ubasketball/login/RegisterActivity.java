@@ -1,6 +1,5 @@
-package ethan.com.ubasketball;
+package ethan.com.ubasketball.login;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -8,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,18 +21,22 @@ import java.util.regex.Pattern;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import ethan.com.ubasketball.R;
+import ethan.com.ubasketball.util.ActivityCollector;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText phoneNumber_ET;
     private EditText verificationCode_ET;
     private Button sendCode_BT;
     private EditText passwordNumber_ET;
+    private Button showPassword_BT;
     private Button registerOk_BT;
     private EventHandler eventHandler; //事件接收器
     private TimeCount timeCount;//计时器
     private Handler handler;
     private Button backButton;
     private boolean flag = true;
+    private boolean showPassword = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,49 +52,39 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         init();
         initEventHandler();
 
+        ActivityCollector.addActivity(this);
+
     }
 
+    private void init() {
+        phoneNumber_ET = (EditText) findViewById(R.id.phone_number_id);
+        verificationCode_ET = (EditText) findViewById(R.id.verification_code_id);
+        sendCode_BT = (Button) findViewById(R.id.send_code_id);
+        passwordNumber_ET = (EditText) findViewById(R.id.password_number_id);
+        registerOk_BT = (Button) findViewById(R.id.register_ok_id);
+        backButton = (Button) findViewById(R.id.back_button);
+        showPassword_BT = (Button) findViewById(R.id.register_show_password_id);
+        timeCount = new TimeCount(60000, 1000);
+        sendCode_BT.setOnClickListener(this);
+        registerOk_BT.setOnClickListener(this);
+        backButton.setOnClickListener(this);
+        showPassword_BT.setOnClickListener(this);
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.send_code_id:
-//                SMSSDK.getSupportedCountries();//获取短信目前支持的国家列表
-                if (!phoneNumber_ET.getText().toString().trim().equals("")) {
-                    if (checkTel(phoneNumber_ET.getText().toString().trim())) {
-                        flag = true;
-                        SMSSDK.getVerificationCode("+86", phoneNumber_ET.getText().toString());//获取验证码
-                        timeCount.start();
-                        Toast.makeText(RegisterActivity.this, "已发送验证码", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(RegisterActivity.this, "请输入手机号码", Toast.LENGTH_SHORT).show();
-                }
+                SendVerificationCode();
                 break;
             case R.id.register_ok_id:
-                if (!phoneNumber_ET.getText().toString().trim().equals("")) {
-                    if (checkTel(phoneNumber_ET.getText().toString().trim())) {
-                        if (!verificationCode_ET.getText().toString().trim().equals("")) {
-                            if (!passwordNumber_ET.getText().toString().trim().equals("")) {
-                                SMSSDK.submitVerificationCode("+86", phoneNumber_ET.getText().toString().trim(), verificationCode_ET.getText().toString().trim());//提交验证
-                                flag = false;
-                            } else {
-                                Toast.makeText(RegisterActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(RegisterActivity.this, "请输入手机号码", Toast.LENGTH_SHORT).show();
-                }
+                Register();
                 break;
             case R.id.back_button:
                 startActivity(new Intent(RegisterActivity.this, LoginByPasswordActivity.class));
+                break;
+            case R.id.register_show_password_id:
+                ChangeShowPassword();
                 break;
         }
     }
@@ -110,20 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eventHandler);
-    }
-
-
-    private void init() {
-        phoneNumber_ET = (EditText) findViewById(R.id.phone_number_id);
-        verificationCode_ET = (EditText) findViewById(R.id.verification_code_id);
-        sendCode_BT = (Button) findViewById(R.id.send_code_id);
-        passwordNumber_ET = (EditText) findViewById(R.id.password_number_id);
-        registerOk_BT = (Button) findViewById(R.id.register_ok_id);
-        backButton = (Button) findViewById(R.id.back_button);
-        timeCount = new TimeCount(60000, 1000);
-        sendCode_BT.setOnClickListener(this);
-        registerOk_BT.setOnClickListener(this);
-        backButton.setOnClickListener(this);
+        ActivityCollector.removeActivity(this);
     }
 
     /**
@@ -179,6 +161,42 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         SMSSDK.registerEventHandler(eventHandler); //注册短信回调
     }
 
+    private void SendVerificationCode() {
+        //SMSSDK.getSupportedCountries();//获取短信目前支持的国家列表
+        if (!phoneNumber_ET.getText().toString().trim().equals("")) {
+            if (checkTel(phoneNumber_ET.getText().toString().trim())) {
+                flag = true;
+                SMSSDK.getVerificationCode("+86", phoneNumber_ET.getText().toString());//获取验证码
+                timeCount.start();
+                Toast.makeText(RegisterActivity.this, "已发送验证码", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(RegisterActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(RegisterActivity.this, "请输入手机号码", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void Register() {
+        if (!phoneNumber_ET.getText().toString().trim().equals("")) {
+            if (checkTel(phoneNumber_ET.getText().toString().trim())) {
+                if (!verificationCode_ET.getText().toString().trim().equals("")) {
+                    if (!passwordNumber_ET.getText().toString().trim().equals("")) {
+                        SMSSDK.submitVerificationCode("+86", phoneNumber_ET.getText().toString().trim(), verificationCode_ET.getText().toString().trim());//提交验证
+                        flag = false;
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(RegisterActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(RegisterActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(RegisterActivity.this, "请输入手机号码", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     /**
      * 计时器
@@ -198,6 +216,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         public void onFinish() {
             sendCode_BT.setClickable(true);
             sendCode_BT.setText("验证码");
+        }
+    }
+
+    private void ChangeShowPassword() {
+        if (showPassword) {
+            showPassword_BT.setBackground(getResources().getDrawable(R.drawable.eyeclose));
+            passwordNumber_ET.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            passwordNumber_ET.setSelection(passwordNumber_ET.getText().toString().trim().length());
+            showPassword = !showPassword;
+        } else {
+            showPassword_BT.setBackground(getResources().getDrawable(R.drawable.eyeopen));
+            passwordNumber_ET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            passwordNumber_ET.setSelection(passwordNumber_ET.getText().toString().trim().length());
+            showPassword = !showPassword;
         }
     }
 

@@ -21,16 +21,24 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginByMessageActivity" />
-        <activity android:name=".LoginByPasswordActivity" />
+        <activity
+            android:name=".login.RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".login.LoginByMessageActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".login.LoginByPasswordActivity"
+            android:launchMode="singleTask" />
         <activity android:name="com.mob.tools.MobUIShell" />
 
         <meta-data

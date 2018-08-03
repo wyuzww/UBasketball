@@ -134,11 +134,11 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/show_password_id"
+            android:id="@+id/register_show_password_id"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:background="@drawable/showpassword" />
+            android:background="@drawable/eyeclose" />
     </LinearLayout>
 
     <TextView

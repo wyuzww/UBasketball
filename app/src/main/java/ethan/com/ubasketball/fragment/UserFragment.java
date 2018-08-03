@@ -15,8 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import ethan.com.ubasketball.LoginByPasswordActivity;
-import ethan.com.ubasketball.MainActivity;
+import ethan.com.ubasketball.login.LoginByPasswordActivity;
 import ethan.com.ubasketball.R;
 import ethan.com.ubasketball.adapter.FruitAdapter;
 import ethan.com.ubasketball.entity.Fruit;
