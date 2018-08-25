@@ -1,4 +1,4 @@
-package ethan.com.ubasketball.adapter;
+package com.ethan.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ethan.com.ubasketball.R;
-import ethan.com.ubasketball.entity.Fruit;
+import com.ethan.entity.Fruit;
+import com.ethan.R;
 
 public class FruitAdapter extends ArrayAdapter<Fruit> {
     private int resourceId;

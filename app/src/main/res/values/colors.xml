@@ -2,13 +2,16 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="mycolor">#8000</color>
+    <color name="mycolormore">#a9161616</color>
     <color name="gray">#2000</color>
     <color name="white">#ffffff</color>
     <color name="grayDark">#4000</color>
     <color name="Dark">#000000</color>
+    <color name="lessDark">#393737</color>
     <color name="fragmentcolor">#F1F1F1</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textColor">#8a8a8a</color>
+    <color name="Red">#ff3333</color>
     <color name="textSelectColor">#1296db</color>
 </resources>

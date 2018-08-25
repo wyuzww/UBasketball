@@ -1,4 +1,4 @@
-package ethan.com.ubasketball.fragment;
+package com.ethan.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,17 +13,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import ethan.com.ubasketball.R;
-import ethan.com.ubasketball.adapter.FruitAdapter;
-import ethan.com.ubasketball.entity.Fruit;
+import com.ethan.adapter.FruitAdapter;
+import com.ethan.entity.Fruit;
+import com.ethan.R;
 
-public class SearchFragment extends Fragment {
+public class ClockFragment extends Fragment {
     private List<Fruit> fruitList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_clock, container, false);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.onActivityCreated(null);
     }
 
     @Override
@@ -33,7 +39,7 @@ public class SearchFragment extends Fragment {
         initFruits();
         FruitAdapter fruitAdapter = new FruitAdapter(getActivity(), R.layout.fruit_item, fruitList);
 
-        ListView listView = (ListView) getActivity().findViewById(R.id.search_listview);
+        ListView listView = (ListView) getActivity().findViewById(R.id.clock_listview);
         listView.setAdapter(fruitAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,4 +66,3 @@ public class SearchFragment extends Fragment {
 
 
 }
-

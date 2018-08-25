@@ -1,4 +1,4 @@
-package ethan.com.ubasketball.entity;
+package com.ethan.entity;
 
 public class Fruit {
     private String name;

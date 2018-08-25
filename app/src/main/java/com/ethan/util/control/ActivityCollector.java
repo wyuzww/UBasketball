@@ -1,4 +1,4 @@
-package ethan.com.ubasketball.util;
+package com.ethan.util.control;
 
 import android.app.Activity;
 
@@ -14,6 +14,10 @@ public class ActivityCollector {
 
     public static void removeActivity(Activity activity) {
         activities.remove(activity);
+    }
+
+    public static void finishActivity(Activity activity) {
+        activity.finish();
     }
 
     public static void finishAll() {

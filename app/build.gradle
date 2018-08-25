@@ -38,6 +38,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.alibaba:fastjson:1.1.70.android'
 //    implementation files('libs/MobCommons-2018.0704.1311.jar')
 //    implementation files('libs/MobTools-2018.0704.1157.jar')
 //    implementation files('libs/SDKWrapper-2018.0201.1609.jar')
