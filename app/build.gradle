@@ -40,6 +40,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.alibaba:fastjson:1.1.70.android'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 //    implementation files('libs/MobCommons-2018.0704.1311.jar')
 //    implementation files('libs/MobTools-2018.0704.1157.jar')
 //    implementation files('libs/SDKWrapper-2018.0201.1609.jar')

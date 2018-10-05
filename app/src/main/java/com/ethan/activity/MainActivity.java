@@ -1,21 +1,25 @@
 package com.ethan.activity;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.os.Build;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ethan.R;
+import com.ethan.activity.game.ScoreCounterActivity;
 import com.ethan.fragment.ClockFragment;
 import com.ethan.fragment.MainFragment;
 import com.ethan.fragment.SearchFragment;
@@ -26,12 +30,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private ArrayList<MyOnTouchListener> onTouchListeners = new ArrayList<MyOnTouchListener>(10);
 
     //底部四个点击TextView
     private TextView txt_main;
     private TextView txt_clock;
     private TextView txt_search;
     private TextView txt_user;
+    //ImageView
+    private ImageView txt_add;
     //fragmet嵌入在这里
     private FrameLayout main_frameLayout;
     //Fragment管理
@@ -49,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static boolean isExit = false;
 
 
+    public interface MyOnTouchListener {
+        public boolean onTouch(MotionEvent ev);
+    }
 
 
     @Override
@@ -88,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_clock = (TextView) findViewById(R.id.txt_clock);
         txt_search = (TextView) findViewById(R.id.txt_search);
         txt_user = (TextView) findViewById(R.id.txt_user);
+        txt_add = findViewById(R.id.txt_add);
         //framlayout获取
         main_frameLayout = (FrameLayout) findViewById(R.id.main_fragment_container);
         //设置监听器
@@ -95,6 +106,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_user.setOnClickListener(this);
         txt_search.setOnClickListener(this);
         txt_clock.setOnClickListener(this);
+        txt_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addBallGame();
+            }
+        });
 
         tv_list = new ArrayList<>();
         tv_list.add(txt_main);
@@ -119,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        txt_add.setSelected(false);
         //v4包导入getSupportFragmentManager，app包使用getFragmentManager，app包3.0后才使用
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -143,6 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     transaction.show(clockFragment);
                 }
                 break;
+//            case R.id.txt_add:
+//                addBallGame();
+//                break;
             case R.id.txt_search:
                 changeFragmentSelect(2);
                 if (searchFragment == null) {
@@ -251,4 +272,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.exit(0);
         }
     }
+
+    private void addBallGame() {
+        final String item[] = {"默认赛制", "自定义赛制"};
+        for (int i = 0; i < tv_list.size(); i++) {
+            tv_list.get(i).setTextColor(getResources().getColor(R.color.textColor));
+            tv_list.get(i).setSelected(false);
+        }
+        if (txt_add.isSelected()) {
+            txt_add.setSelected(false);
+            changeFragmentSelect(fragement_index);
+        } else {
+            txt_add.setSelected(true);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("创建比赛").create();
+            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    dialog.dismiss();
+                    addBallGame();
+                }
+            });
+            builder.setItems(item, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0:
+                            startActivity(new Intent(MainActivity.this, ScoreCounterActivity.class));
+                            break;
+                        case 1:
+                            Toast.makeText(MainActivity.this, "暂不支持", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                    dialog.dismiss();
+                    addBallGame();
+                }
+            });
+            builder.show();
+        }
+
+    }
+
+    //fragment触摸事件分发，将触摸事件分发给每个能够响应的fragment
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        for (MyOnTouchListener listener : onTouchListeners) {
+            if (listener != null) {
+                listener.onTouch(ev);
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public void registerMyOnTouchListener(MyOnTouchListener myOnTouchListener) {
+        onTouchListeners.add(myOnTouchListener);
+    }
+
+    public void unregisterMyOnTouchListener(MyOnTouchListener myOnTouchListener) {
+        onTouchListeners.remove(myOnTouchListener);
+    }
+
 }

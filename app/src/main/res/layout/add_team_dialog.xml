@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/grayDark"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/Dark"
+            android:text="添加队伍" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/add_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="取消" />
+
+            <Button
+                android:id="@+id/add_ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="确定" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/fragmentcolor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="队名" />
+
+                <EditText
+                    android:id="@+id/add_team_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="队伍名称"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="160803" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="主力1" />
+
+                <EditText
+                    android:id="@+id/player1_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="1" />
+
+                <EditText
+                    android:id="@+id/player1_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="主力2" />
+
+                <EditText
+                    android:id="@+id/player2_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="2" />
+
+                <EditText
+                    android:id="@+id/player2_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="主力3" />
+
+                <EditText
+                    android:id="@+id/player3_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="3" />
+
+                <EditText
+                    android:id="@+id/player3_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="主力4" />
+
+                <EditText
+                    android:id="@+id/player4_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="4" />
+
+                <EditText
+                    android:id="@+id/player4_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="主力5" />
+
+                <EditText
+                    android:id="@+id/player5_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="5" />
+
+                <EditText
+                    android:id="@+id/player5_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="替补1" />
+
+                <EditText
+                    android:id="@+id/player6_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="6" />
+
+                <EditText
+                    android:id="@+id/player6_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="替补2" />
+
+                <EditText
+                    android:id="@+id/player7_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="7" />
+
+                <EditText
+                    android:id="@+id/player7_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武7" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="替补3" />
+
+                <EditText
+                    android:id="@+id/player8_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="8" />
+
+                <EditText
+                    android:id="@+id/player8_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武8" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="替补4" />
+
+                <EditText
+                    android:id="@+id/player9_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="9" />
+
+                <EditText
+                    android:id="@+id/player9_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武9" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="替补5" />
+
+                <EditText
+                    android:id="@+id/player10_number_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="1234567890"
+                    android:gravity="center_horizontal"
+                    android:hint="号码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="10" />
+
+                <EditText
+                    android:id="@+id/player10_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:hint="名字"
+                    android:imeOptions="flagNoExtractUi"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="钟文武10" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

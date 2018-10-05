@@ -36,6 +36,14 @@
             android:paddingTop="5dp"
             android:text="收藏" />
 
+        <ImageView
+            android:id="@+id/txt_add"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:src="@drawable/tab_menu_add_img" />
+
         <TextView
             android:id="@+id/txt_search"
             android:layout_width="0dp"
@@ -78,6 +86,5 @@
         android:layout_height="match_parent"
         android:background="@color/fragmentcolor"
         android:layout_above="@id/line">
-
     </FrameLayout>
 </RelativeLayout>

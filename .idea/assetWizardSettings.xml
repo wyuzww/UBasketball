@@ -95,8 +95,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_right" />
-                            <entry key="sourceFile" value="E:\图标icon\UBasketball素材\right.svg" />
+                            <entry key="height" value="200" />
+                            <entry key="outputName" value="ic_pulldown" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="E:\图标icon\UBasketball素材\pulldown.svg" />
+                            <entry key="width" value="300" />
                           </map>
                         </option>
                       </PersistentState>

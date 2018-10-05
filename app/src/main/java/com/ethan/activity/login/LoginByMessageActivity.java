@@ -3,7 +3,6 @@ package com.ethan.activity.login;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -123,7 +122,7 @@ public class LoginByMessageActivity extends AppCompatActivity implements View.On
                 if (result == SMSSDK.RESULT_COMPLETE) { //回调完成
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) { //验证验证码成功
                         Log.e("RegisterActivity", "验证验证码成功");
-                        Toast.makeText(LoginByMessageActivity.this, "验证验证码成功", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginByMessageActivity.this, "验证验证码成功", Toast.LENGTH_SHORT).show();
                         loginByMessage(phoneNumber_ET.getText().toString().trim());
 
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) { //获取验证码成功
@@ -131,7 +130,7 @@ public class LoginByMessageActivity extends AppCompatActivity implements View.On
                         Toast.makeText(LoginByMessageActivity.this, "获取验证码成功", Toast.LENGTH_SHORT).show();
 
                     } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {//返回支持发送验证码的国家列表
-                        Toast.makeText(LoginByMessageActivity.this, "返回支持发送验证码的国家列表", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginByMessageActivity.this, "返回支持发送验证码的国家列表", Toast.LENGTH_SHORT).show();
                         Log.e("RegisterActivity", "返回支持发送验证码的国家列表");
                     }
                 } else {
@@ -258,7 +257,7 @@ public class LoginByMessageActivity extends AppCompatActivity implements View.On
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(LoginByMessageActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginByMessageActivity.this, "无法连接到服务器", Toast.LENGTH_SHORT).show();
                             login_Dialog.dismiss();
                         }
                     });
@@ -271,6 +270,7 @@ public class LoginByMessageActivity extends AppCompatActivity implements View.On
                         }
                     });
                 }
+                call.cancel();
             }
 
             @Override

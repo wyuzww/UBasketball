@@ -49,12 +49,20 @@
             android:paddingTop="20dp"
             android:paddingBottom="10dp">
 
-            <ImageView
+            <!--<ImageView-->
+            <!--android:id="@+id/user_image"-->
+            <!--android:layout_width="?attr/actionBarSize"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:src="@drawable/ic_cuser" />-->
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/user_image"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
+                android:src="@mipmap/ic_logo"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_cuser" />
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/gray" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -272,6 +280,7 @@
             android:background="#1000" />
 
         <LinearLayout
+            android:id="@+id/score_counter_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"

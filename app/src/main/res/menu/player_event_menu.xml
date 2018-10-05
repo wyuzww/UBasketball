@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cancel_id"
+        android:title="取消"></item>
+    <item
+        android:id="@+id/score_id"
+        android:title="投篮">
+        <menu>
+            <item
+                android:id="@+id/cancel1_id"
+                android:title="取消"></item>
+            <item
+                android:id="@+id/three_id"
+                android:title="得分（+3）"></item>
+            <item
+                android:id="@+id/two_id"
+                android:title="得分（+2）"></item>
+            <item
+                android:id="@+id/one_id"
+                android:title="得分（+1）"></item>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/assist_id"
+        android:title="助攻（+1）"></item>
+    <item
+        android:id="@+id/backboard_id"
+        android:title="篮板（+1）"></item>
+    <item
+        android:id="@+id/block_id"
+        android:title="封盖（+1）"></item>
+    <item
+        android:id="@+id/steal_id"
+        android:title="抢断（+1）"></item>
+    <item
+        android:id="@+id/foul_id"
+        android:title="犯规（+1）"></item>
+
+</menu>

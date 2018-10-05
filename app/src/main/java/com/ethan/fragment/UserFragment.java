@@ -11,18 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.ethan.R;
+import com.ethan.activity.login.LoginByPasswordActivity;
+import com.ethan.activity.userfragment.UserInfoActivity;
+import com.ethan.activity.game.ScoreCounterActivity;
+import com.ethan.entity.Fruit;
+import com.ethan.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ethan.activity.userfragment.UserInfoActivity;
-import com.ethan.entity.Fruit;
-import com.ethan.R;
-import com.ethan.activity.login.LoginByPasswordActivity;
-
 public class UserFragment extends Fragment implements View.OnClickListener {
     private LinearLayout user_info_head;
+    private LinearLayout score_counter_LL;
     private ImageView user_image_IV;
     private TextView user_name_TV;
     private TextView user_signature_TV;
@@ -60,10 +62,12 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private void initUser() {
 
         user_info_head = (LinearLayout) getActivity().findViewById(R.id.user_info_head);
+        score_counter_LL = (LinearLayout) getActivity().findViewById(R.id.score_counter_id);
         user_image_IV = (ImageView) getActivity().findViewById(R.id.user_image);
         user_name_TV = (TextView) getActivity().findViewById(R.id.user_name);
         user_signature_TV = (TextView) getActivity().findViewById(R.id.user_signature);
         user_info_head.setOnClickListener(this);
+        score_counter_LL.setOnClickListener(this);
 
 
         loadUser();
@@ -77,6 +81,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 user_info_head();
 //                startActivity(new Intent(getActivity(), LoginByPasswordActivity.class));
                 break;
+            case R.id.score_counter_id:
+                to_Score_Counter();
+                break;
         }
     }
 
@@ -84,14 +91,48 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         user_info_preferences = getContext().getSharedPreferences("UserInfo", 0);
         isLogined = user_info_preferences.getBoolean("isLogined", false);
         if (isLogined) {
+
+            String user_number = user_info_preferences.getString("user_number", "user_temp");
+            String user_image = user_info_preferences.getString("user_image", "userImage/" + user_number + ".jpg");
             String user_name = user_info_preferences.getString("user_name", "");
             String user_signature = user_info_preferences.getString("user_signature", "未设置个性签名...");
+
+//            final File file = new File(getActivity().getExternalFilesDir("userImage"), user_number + ".jpg");
+//
+//            //user_image_IV.setImageBitmap();//头像
+//            if (file.exists()) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Picasso.with(getActivity()).invalidate(file);
+//                        Picasso.with(getActivity()).load(file)
+//                                .into(user_image_IV);
+//                    }
+//                });
+//
+//            } else {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {//http://192.168.43.196/UBasketball/     "http://wyuzww.nat123.net/UBasketball/userImage/13612250853.jpg"
+//                        Picasso.with(getActivity()).invalidate("http://192.168.43.196/UBasketball/userImage/13612250853.jpg");
+//                        Picasso.with(getActivity()).load("http://192.168.43.196/UBasketball/userImage/13612250853.jpg")
+//                                .error(R.mipmap.ic_logo)
+//                                .placeholder(R.mipmap.ic_logo)
+//                                .into(user_image_IV);
+//                    }
+//                });
+//            }
+
+
+            new Utils().findUserImage(user_image, user_number, getActivity(), user_image_IV);
+
             if (user_signature.equals("")) {
                 user_signature = "未设置个性签名...";
             }
             user_name_TV.setText(user_name);
             user_signature_TV.setText(user_signature);
         } else {
+            user_image_IV.setImageResource(R.mipmap.ic_logo);
             user_name_TV.setText("未登录");
             user_signature_TV.setText("请先登录...");
         }
@@ -100,11 +141,16 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     private void user_info_head() {
         if (isLogined) {
-            Toast.makeText(getActivity(), "已经登录", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "已经登录", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(), UserInfoActivity.class));
         } else {
             startActivity(new Intent(getActivity(), LoginByPasswordActivity.class));
         }
+    }
+
+    private void to_Score_Counter() {
+        Intent intent = new Intent(getActivity(), ScoreCounterActivity.class);
+        startActivity(intent);
     }
 
     @Override

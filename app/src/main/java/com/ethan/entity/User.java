@@ -3,6 +3,7 @@ package com.ethan.entity;
 public class User {
     private int user_id;
     private String user_number;
+    private String user_image;
     private String user_name;
     private String user_password;
     private String user_sex;
@@ -14,6 +15,7 @@ public class User {
     public void setUser(User user) {
         this.user_id = user.user_id;
         this.user_number = user.user_number;
+        this.user_image = user.user_image;
         this.user_name = user.user_name;
         this.user_password = user.user_password;
         this.user_sex = user.user_sex;
@@ -42,6 +44,13 @@ public class User {
         this.user_number = user_number;
     }
 
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
+    }
 
     public String getUser_password() {
         return user_password;

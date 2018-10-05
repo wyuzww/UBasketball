@@ -17,6 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
+import com.ethan.R;
+import com.ethan.util.Utils;
+import com.ethan.util.control.ActivityCollector;
+import com.ethan.util.network.HttpClient;
+
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -29,12 +35,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
-
-import com.alibaba.fastjson.JSONObject;
-import com.ethan.R;
-import com.ethan.util.control.ActivityCollector;
-import com.ethan.util.Utils;
-import com.ethan.util.network.HttpClient;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText phoneNumber_ET;
@@ -146,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (result == SMSSDK.RESULT_COMPLETE) { //回调完成
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) { //验证验证码成功
                         Log.e("RegisterActivity", "验证验证码成功");
-                        Toast.makeText(RegisterActivity.this, "验证验证码成功", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(RegisterActivity.this, "验证验证码成功", Toast.LENGTH_SHORT).show();
 
                         checkUser(phoneNumber_ET.getText().toString().trim(), passwordNumber_ET.getText().toString().trim());
 
@@ -294,7 +294,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(RegisterActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "无法连接到服务器", Toast.LENGTH_SHORT).show();
                             register_Dialog.dismiss();
                         }
                     });
@@ -307,6 +307,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     });
                 }
+                call.cancel();
             }
 
             @Override

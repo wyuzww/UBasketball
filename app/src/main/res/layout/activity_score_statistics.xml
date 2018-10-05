@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="50dp"
+    android:background="@drawable/rectangle_frame_shape"
+    android:gravity="center">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/textSelectColor"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/textSelectColor">
+
+                    <TextView
+                        android:id="@+id/leftTeam"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/rectangle_frame_shape"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/lessDark"
+                        android:textSize="20dp"
+                        android:text="主场球队" />
+
+                    <TextView
+                        android:id="@+id/rightTeam"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/rectangle_frame_shape"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/lessDark"
+                        android:textSize="15dp"
+                        android:text="客场球队" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:background="@drawable/rectangle_frame_shape">
+
+                    <Button
+                        android:id="@+id/exit_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/ic_close" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/team_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="160803班"
+                    android:textColor="@color/Dark"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/team_score"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="20"
+                    android:textColor="@color/textSelectColor"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="球员" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="得分" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="3分" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="2分" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="罚球" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="助攻" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="篮板" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="抢断" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="封盖" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_frame_shape"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/lessDark"
+                    android:text="犯规" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/player_statistics_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ListView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>

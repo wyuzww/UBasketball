@@ -14,4 +14,6 @@
     <color name="textColor">#8a8a8a</color>
     <color name="Red">#ff3333</color>
     <color name="textSelectColor">#1296db</color>
+    <color name="textSelectColorDark">#0779b4</color>
+    <color name="transparent">#00000000</color>
 </resources>

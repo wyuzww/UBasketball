@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.mob.MobApplication"
@@ -26,25 +28,41 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.register.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.login.LoginByMessageActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.login.LoginByPasswordActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.userfragment.UserInfoActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask" />
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.game.ScoreCounterActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:theme="@style/myTransparent"
+            android:name=".activity.game.ScoreStatisticsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.news.NewsDisplayActvivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
 
         <activity android:name="com.mob.tools.MobUIShell" />
 
@@ -54,6 +72,17 @@
         <meta-data
             android:name="Mob-AppSecret"
             android:value="3f4956b452fd3d82671f707193bda8ef" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.ethan"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
 
 </manifest>

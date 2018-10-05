@@ -168,7 +168,7 @@ public class LoginByPasswordActivity extends AppCompatActivity implements View.O
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(LoginByPasswordActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginByPasswordActivity.this, "无法连接到服务器", Toast.LENGTH_SHORT).show();
                                     login_Dialog.dismiss();
                                 }
                             });
@@ -181,6 +181,7 @@ public class LoginByPasswordActivity extends AppCompatActivity implements View.O
                                 }
                             });
                         }
+                        call.cancel();
                     }
 
                     @Override
@@ -211,6 +212,7 @@ public class LoginByPasswordActivity extends AppCompatActivity implements View.O
                                         login_Dialog.dismiss();
                                         if (code == 0) {
                                             new Utils().saveUser(LoginByPasswordActivity.this, user);
+
                                             //saveUser(user);
                                             finish();
                                         }
