@@ -11,6 +11,20 @@ public class User {
     private String user_signature;
     private String user_token;
 
+    public User() {
+    }
+
+    public User(int user_id, String user_number, String user_image, String user_name, String user_password, String user_sex, String user_birth, String user_signature, String user_token) {
+        this.user_id = user_id;
+        this.user_number = user_number;
+        this.user_image = user_image;
+        this.user_name = user_name;
+        this.user_password = user_password;
+        this.user_sex = user_sex;
+        this.user_birth = user_birth;
+        this.user_signature = user_signature;
+        this.user_token = user_token;
+    }
 
     public void setUser(User user) {
         this.user_id = user.user_id;

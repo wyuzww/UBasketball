@@ -20,10 +20,11 @@ import android.widget.Toast;
 
 import com.ethan.R;
 import com.ethan.activity.game.ScoreCounterActivity;
-import com.ethan.fragment.ClockFragment;
+import com.ethan.fragment.FindFragment;
 import com.ethan.fragment.MainFragment;
-import com.ethan.fragment.SearchFragment;
+import com.ethan.fragment.MoodFragment;
 import com.ethan.fragment.UserFragment;
+import com.ethan.util.Utils;
 import com.ethan.util.control.ActivityCollector;
 
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //底部四个点击TextView
     private TextView txt_main;
-    private TextView txt_clock;
-    private TextView txt_search;
+    private TextView txt_mood;
+    private TextView txt_find;
     private TextView txt_user;
     //ImageView
     private ImageView txt_add;
@@ -45,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentManager fragmentManager;
     //Fragment类
     private MainFragment mainFragment;
-    private ClockFragment clockFragment;
-    private SearchFragment searchFragment;
+    private MoodFragment moodFragment;
+    private FindFragment findFragment;
     private UserFragment userFragment;
     //管理Fragmenty的图标和字体
     private List<TextView> tv_list;
@@ -69,8 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        if (Build.VERSION.SDK_INT >= 21) {
 //            View decorView = getWindow().getDecorView();
 //            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+//            getWindow().setStatusBarColor(getResources().getColor(R.color.textSelectColor));
 //        }
+        new Utils().setFullScreen(getWindow());
 
         initUI();
 
@@ -95,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initUI() {
         txt_main = (TextView) findViewById(R.id.txt_main);
-        txt_clock = (TextView) findViewById(R.id.txt_clock);
-        txt_search = (TextView) findViewById(R.id.txt_search);
+        txt_mood = (TextView) findViewById(R.id.txt_mood);
+        txt_find = (TextView) findViewById(R.id.txt_find);
         txt_user = (TextView) findViewById(R.id.txt_user);
         txt_add = findViewById(R.id.txt_add);
         //framlayout获取
@@ -104,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //设置监听器
         txt_main.setOnClickListener(this);
         txt_user.setOnClickListener(this);
-        txt_search.setOnClickListener(this);
-        txt_clock.setOnClickListener(this);
+        txt_find.setOnClickListener(this);
+        txt_mood.setOnClickListener(this);
         txt_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tv_list = new ArrayList<>();
         tv_list.add(txt_main);
-        tv_list.add(txt_clock);
-        tv_list.add(txt_search);
+        tv_list.add(txt_mood);
+        tv_list.add(txt_find);
         tv_list.add(txt_user);
 
 
@@ -152,25 +154,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     transaction.show(mainFragment);
                 }
                 break;
-            case R.id.txt_clock:
+            case R.id.txt_mood:
                 changeFragmentSelect(1);
-                if (clockFragment == null) {
-                    clockFragment = new ClockFragment();
-                    transaction.add(R.id.main_fragment_container, clockFragment);
+                if (moodFragment == null) {
+                    moodFragment = new MoodFragment();
+                    transaction.add(R.id.main_fragment_container, moodFragment);
                 } else {
-                    transaction.show(clockFragment);
+                    transaction.show(moodFragment);
                 }
                 break;
 //            case R.id.txt_add:
 //                addBallGame();
 //                break;
-            case R.id.txt_search:
+            case R.id.txt_find:
                 changeFragmentSelect(2);
-                if (searchFragment == null) {
-                    searchFragment = new SearchFragment();
-                    transaction.add(R.id.main_fragment_container, searchFragment);
+                if (findFragment == null) {
+                    findFragment = new FindFragment();
+                    transaction.add(R.id.main_fragment_container, findFragment);
                 } else {
-                    transaction.show(searchFragment);
+                    transaction.show(findFragment);
                 }
                 break;
             case R.id.txt_user:
@@ -193,31 +195,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (mainFragment != null) {
             transaction.hide(mainFragment);
         }
-        if (clockFragment != null) {
-            transaction.hide(clockFragment);
+        if (moodFragment != null) {
+            transaction.hide(moodFragment);
         }
-        if (searchFragment != null) {
-            transaction.hide(searchFragment);
+        if (findFragment != null) {
+            transaction.hide(findFragment);
         }
         if (userFragment != null) {
             transaction.hide(userFragment);
         }
     }
 
-//    private void removeAllFragment(FragmentTransaction transaction) {
-//        if (mainFragment != null) {
-//            transaction.remove(mainFragment);
-//        }
-//        if (clockFragment != null) {
-//            transaction.remove(clockFragment);
-//        }
-//        if (searchFragment != null) {
-//            transaction.remove(searchFragment);
-//        }
-//        if (userFragment != null) {
-//            transaction.remove(userFragment);
-//        }
-//    }
 
 
     //管理Fragmenty的图标和字体

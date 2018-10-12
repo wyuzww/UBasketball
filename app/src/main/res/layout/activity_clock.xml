@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/textSelectColor">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的收藏"
+            android:textColor="@color/lessDark"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/back" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/mood_user_image_id"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_user_icon"
+                    app:civ_border_color="@color/gray"
+                    app:civ_border_width="2dp" />
+
+                <LinearLayout
+                    android:id="@+id/mood_user_layout_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/mood_user_name_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="背身单打美如画"
+                            android:textColor="@color/lessDark"
+                            android:textSize="13dp" />
+
+                        <ImageView
+                            android:id="@+id/mood_user_sex_id"
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/ic_man" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/mood_time_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="2018-09-26 16:46"
+                            android:textColor="@color/textColor"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mood_text_layout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/mood_text_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="就在刚刚！男篮国家队主帅之争落下帷幕，杜锋重回广东执教"
+                    android:textColor="@color/Dark"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/mood_images_layout_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp">
+
+                <com.ethan.util.view.MyGirdView
+                    android:id="@+id/mood_image_gv_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="3"
+                    android:scrollbars="none">
+
+                </com.ethan.util.view.MyGirdView>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.ethan.util.view.DrawableTextView
+                    android:id="@+id/mood_clock_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/mood_clock_img"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingTop="5dp"
+                    android:text="收藏"
+                    android:textColor="@color/mycolormore"
+                    android:textSize="12dp" />
+
+                <com.ethan.util.view.DrawableTextView
+                    android:id="@+id/mood_comment_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/mood_comment_img"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingTop="5dp"
+                    android:text="评论"
+                    android:textColor="@color/mycolormore"
+                    android:textSize="12dp" />
+
+                <com.ethan.util.view.DrawableTextView
+                    android:id="@+id/mood_love_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/mood_love_img"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingTop="5dp"
+                    android:text="点赞"
+                    android:textColor="@color/Red"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/gray"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="你还没有收藏哦！" />
+
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/clock_listview_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>

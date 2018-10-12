@@ -13,25 +13,30 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ethan.R;
 import com.ethan.activity.MainActivity;
-import com.ethan.activity.news.NewsDisplayActvivity;
+import com.ethan.activity.mainfragment.NewsDisplayActvivity;
 import com.ethan.adapter.NewsAdapter;
 import com.ethan.entity.News;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends Fragment implements GestureDetector.OnGestureListener, SwipeRefreshLayout.OnRefreshListener {
+public class MainFragment extends Fragment implements GestureDetector.OnGestureListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     private MainActivity.MyOnTouchListener onTouchListener;
-
     private GestureDetector gestureDetector;
     private boolean isShow = true;
+    private boolean isNews = true;
     final int TOP = 1, BOTTOM = 2, LEFT = 3, RIGHT = 4;
 
 
     private LinearLayout main_title_LL;
+    private LinearLayout main_news_LL;
+    private LinearLayout main_game_LL;
+    private TextView title_news_TV;
+    private TextView title_game_TV;
     private SwipeRefreshLayout swipeRefresh_SR;
 
     private List<News> newsList = new ArrayList<>();
@@ -80,19 +85,28 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
 
     private void bindView() {
         main_title_LL = getActivity().findViewById(R.id.main_line1);
+        main_news_LL = getActivity().findViewById(R.id.main_line2);
+        main_game_LL = getActivity().findViewById(R.id.main_line3);
+        title_news_TV = getActivity().findViewById(R.id.title_news_id);
+        title_game_TV = getActivity().findViewById(R.id.title_game_id);
         swipeRefresh_SR = getActivity().findViewById(R.id.swipe_refresh_id);
 
 
+        title_news_TV.setOnClickListener(this);
+        title_game_TV.setOnClickListener(this);
         swipeRefresh_SR.setOnRefreshListener(this);
+        swipeRefresh_SR.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.textSelectColor));
+        swipeRefresh_SR.setColorSchemeResources(R.color.white);
+
     }
 
     private void getNews() {
         for (int i = 0; i < 5; i++) {
             News news = new News(1, "就在刚刚！男篮国家队主帅之争落下帷幕，杜锋重回广东执教", "2018-09-26 16:46", "背身单打美如画",
-                    "http:\\/\\/mini.eastday.com\\/mobile\\/180926164603341.html",
-                    "http:\\/\\/01imgmini.eastday.com\\/mobile\\/20180926\\/20180926164603_40f5706f97e861a38bc6666da44d3dfc_2_mwpm_03200403.jpg",
-                    "http:\\/\\/01imgmini.eastday.com\\/mobile\\/20180926\\/20180926164603_40f5706f97e861a38bc6666da44d3dfc_3_mwpm_03200403.jpg",
-                    "http:\\/\\/01imgmini.eastday.com\\/mobile\\/20180926\\/20180926164603_40f5706f97e861a38bc6666da44d3dfc_1_mwpm_03200403.jpg");
+                    "http://mini.eastday.com/mobile/180926164603341.html",
+                    "http://01imgmini.eastday.com/mobile/20180926/20180926164603_40f5706f97e861a38bc6666da44d3dfc_2_mwpm_03200403.jpg",
+                    "http://01imgmini.eastday.com/mobile/20180926/20180926164603_40f5706f97e861a38bc6666da44d3dfc_3_mwpm_03200403.jpg",
+                    "http://01imgmini.eastday.com/mobile/20180926/20180926164603_40f5706f97e861a38bc6666da44d3dfc_1_mwpm_03200403.jpg");
             newsList.add(news);
             news = new News(2, "曾接受湖人试训，双二十数据仅次于姚明，如今他孑然退役默默无闻", "2018-09-27 20:13", "球盲",
                     "http://mini.eastday.com/mobile/180927201328049.html",
@@ -111,11 +125,11 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
 
 
     public void executeAction(int action) {
-        if (isShow) {
-            main_title_LL.setVisibility(View.VISIBLE);
-        } else {
-            main_title_LL.setVisibility(View.GONE);
-        }
+//        if (isShow) {
+//            main_title_LL.setVisibility(View.VISIBLE);
+//        } else {
+//            main_title_LL.setVisibility(View.GONE);
+//        }
         switch (action) {
             case 1:
                 swipeRefresh_SR.setRefreshing(false);
@@ -200,5 +214,29 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
     @Override
     public void onRefresh() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.title_news_id:
+                if (!isNews) {
+                    isNews = true;
+                    title_news_TV.setTextSize(20);
+                    title_game_TV.setTextSize(15);
+                    main_news_LL.setVisibility(View.VISIBLE);
+                    main_game_LL.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.title_game_id:
+                if (isNews) {
+                    isNews = false;
+                    title_news_TV.setTextSize(15);
+                    title_game_TV.setTextSize(20);
+                    main_news_LL.setVisibility(View.GONE);
+                    main_game_LL.setVisibility(View.VISIBLE);
+                }
+                break;
+        }
     }
 }

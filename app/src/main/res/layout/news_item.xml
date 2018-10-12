@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/on_click_selector"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,36 +16,42 @@
             android:padding="10dp"
             android:text="就在刚刚！男篮国家队主帅之争落下帷幕，杜锋重回广东执教"
             android:textColor="@color/lessDark"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
 
         <ImageView
             android:id="@+id/news_pic1_id"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_frame_shape"
+            android:paddingLeft="2dp"
             android:layout_weight="1"
-            android:src="@drawable/pic" />
+            android:src="@drawable/ic_basketball" />
 
         <ImageView
             android:id="@+id/news_pic2_id"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_frame_shape"
+            android:paddingLeft="1dp"
             android:layout_weight="1"
-            android:src="@drawable/pic" />
+            android:src="@drawable/ic_basketball" />
 
         <ImageView
             android:id="@+id/news_pic3_id"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_frame_shape"
+            android:paddingLeft="1dp"
+            android:paddingRight="2dp"
             android:layout_weight="1"
-            android:src="@drawable/pic" />
+            android:src="@drawable/ic_basketball" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,20 +62,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="来源：" />
+            android:text="来源："
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/news_author_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="背身单打美如画" />
+            android:text="背身单打美如画"
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/news_date_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="2018-09-26 16:46" />
+            android:text="2018-09-26 16:46"
+            android:textSize="12dp" />
 
     </LinearLayout>
 

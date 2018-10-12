@@ -2,6 +2,7 @@ package com.ethan.util.network;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.CacheControl;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MultipartBody;
@@ -25,7 +26,7 @@ public class HttpClient {
                 .readTimeout(30, TimeUnit.SECONDS).build();
         Request request = new Request.Builder()
                 .url(URL + url)
-//                .cacheControl(new CacheControl.Builder().maxAge(0,TimeUnit.SECONDS).build())
+                .cacheControl(new CacheControl.Builder().noCache().noStore().build())
                 .build();
         okHttpClient.newCall(request).enqueue(callback);
 
@@ -38,7 +39,7 @@ public class HttpClient {
         Request request = new Request.Builder()
                 .url(URL + url)
                 .post(formBody)
-//                .cacheControl(new CacheControl.Builder().maxAge(0,TimeUnit.SECONDS).build())
+                .cacheControl(new CacheControl.Builder().noCache().noStore().build())
                 .build();
         okHttpClient.newCall(request).enqueue(callback);
     }
@@ -53,7 +54,7 @@ public class HttpClient {
         Request request = new Request.Builder()
                 .url(URL + url)
                 .post(multipartBody)
-//                .cacheControl(new CacheControl.Builder().maxAge(0,TimeUnit.SECONDS).build())
+                .cacheControl(new CacheControl.Builder().noCache().noStore().build())
                 .build();
 
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
@@ -62,6 +63,24 @@ public class HttpClient {
                 .writeTimeout(300, TimeUnit.SECONDS)
                 .build();
         okHttpClient.newCall(request).enqueue(callback);
+    }
+
+
+    public void request_getImage(String url, Callback callback) {
+
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(10, TimeUnit.SECONDS)//设置连接超时时间
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build();
+//        Handler mDelivery = new Handler(Looper.getMainLooper());
+
+        Request request = new Request.Builder()
+                .url(URL + url)
+                .cacheControl(new CacheControl.Builder().noCache().noStore().build())
+                .build();
+        okHttpClient.newCall(request).enqueue(callback);
+
     }
 
     public String getURL() {

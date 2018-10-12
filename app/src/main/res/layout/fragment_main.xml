@@ -7,12 +7,13 @@
     <LinearLayout
         android:id="@+id/main_line1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:background="@color/textColor"
+        android:background="@color/textSelectColor"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/title_news_id"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -22,7 +23,7 @@
             android:gravity="right|center_vertical"
             android:layout_gravity="center_vertical"
             android:text="体育新闻"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textColor="@color/white" />
 
         <TextView
@@ -31,10 +32,13 @@
             android:background="@color/gray" />
 
         <TextView
+            android:id="@+id/title_game_id"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:layout_gravity="center_vertical"
             android:gravity="left|center_vertical"
             android:text="比赛记录"
@@ -58,5 +62,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_line3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_below="@id/main_line1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="没有比赛记录" />
     </LinearLayout>
 </RelativeLayout>

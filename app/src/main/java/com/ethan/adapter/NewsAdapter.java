@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.ethan.R;
 import com.ethan.entity.News;
+import com.ethan.util.picasso.PicassoTransformation;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -48,15 +50,30 @@ public class NewsAdapter extends ArrayAdapter<News> {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.news_title_TV.setText(newsList.get(position).getNews_title());
-        Picasso.with(context).load(newsList.get(position).getNews_pic_url1()).into(viewHolder.news_pic1_IV);
-        Picasso.with(context).load(newsList.get(position).getNews_pic_url2()).into(viewHolder.news_pic2_IV);
-        Picasso.with(context).load(newsList.get(position).getNews_pic_url3()).into(viewHolder.news_pic3_IV);
+        Picasso.with(context).load(newsList.get(position).getNews_pic_url1())
+                .transform(new PicassoTransformation(context, 3))
+                .placeholder(R.drawable.ic_basketball)
+                .error(R.drawable.ic_basketball)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .into(viewHolder.news_pic1_IV);
+        Picasso.with(context).load(newsList.get(position).getNews_pic_url2())
+                .transform(new PicassoTransformation(context, 3))
+                .placeholder(R.drawable.ic_basketball)
+                .error(R.drawable.ic_basketball)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .into(viewHolder.news_pic2_IV);
+        Picasso.with(context).load(newsList.get(position).getNews_pic_url3())
+                .transform(new PicassoTransformation(context, 3))
+                .placeholder(R.drawable.ic_basketball)
+                .error(R.drawable.ic_basketball)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .into(viewHolder.news_pic3_IV);
         viewHolder.news_author_TV.setText(newsList.get(position).getNews_author());
         viewHolder.news_date_TV.setText(newsList.get(position).getNews_date());
         return view;
     }
 
-    class ViewHolder {
+    private class ViewHolder {
         TextView news_title_TV;
         ImageView news_pic1_IV;
         ImageView news_pic2_IV;

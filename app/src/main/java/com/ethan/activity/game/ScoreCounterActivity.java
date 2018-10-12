@@ -285,6 +285,7 @@ public class ScoreCounterActivity extends AppCompatActivity implements View.OnCl
             //Button
             case R.id.game_over_id:
                 Toast.makeText(ScoreCounterActivity.this, "结束比赛", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
             case R.id.game_statistics_id:
                 showGameStatistics();

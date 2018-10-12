@@ -11,45 +11,53 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ethan.R;
-import com.ethan.activity.login.LoginByPasswordActivity;
-import com.ethan.activity.userfragment.UserInfoActivity;
 import com.ethan.activity.game.ScoreCounterActivity;
-import com.ethan.entity.Fruit;
+import com.ethan.activity.userfragment.login.LoginByPasswordActivity;
+import com.ethan.activity.userfragment.AboutActivity;
+import com.ethan.activity.userfragment.ClockActivity;
+import com.ethan.activity.userfragment.FollowActivity;
+import com.ethan.activity.userfragment.HelpActivity;
+import com.ethan.activity.userfragment.MessageActivity;
+import com.ethan.activity.userfragment.SecurityActivity;
+import com.ethan.activity.userfragment.SettingActivity;
+import com.ethan.activity.userfragment.user.UserHomePageActivity;
+import com.ethan.activity.userfragment.user.UserInfoActivity;
 import com.ethan.util.Utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserFragment extends Fragment implements View.OnClickListener {
-    private LinearLayout user_info_head;
+    private LinearLayout user_info_head_LL;
     private LinearLayout score_counter_LL;
+    private LinearLayout about_LL;
+    private LinearLayout setting_LL;
+    private LinearLayout clock_LL;
+    private LinearLayout message_LL;
+    private LinearLayout my_homepage_LL;
+    private LinearLayout follow_LL;
+    private LinearLayout video_LL;
+    private LinearLayout security_LL;
+    private LinearLayout help_Ll;
+
+
     private ImageView user_image_IV;
     private TextView user_name_TV;
     private TextView user_signature_TV;
     private Boolean isLogined;
     private SharedPreferences user_info_preferences;
-    private List<Fruit> fruitList = new ArrayList<>();
+//    private List<Fruit> fruitList = new ArrayList<>();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
+        bindView();
+
         initUser();
 
 
-        //       initUser();
-//        FruitAdapter fruitAdapter = new FruitAdapter(getActivity(), R.layout.fruit_item, fruitList);
-//        ListView listView = (ListView) getActivity().findViewById(R.id.user_listview);
-//        listView.setAdapter(fruitAdapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Fruit fruit = fruitList.get(i);
-//                Toast.makeText(getActivity(), fruit.getName(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
     }
 
@@ -61,16 +69,39 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     private void initUser() {
 
-        user_info_head = (LinearLayout) getActivity().findViewById(R.id.user_info_head);
+        loadUser();
+
+    }
+
+    private void bindView() {
+
+        user_info_head_LL = (LinearLayout) getActivity().findViewById(R.id.user_info_head);
         score_counter_LL = (LinearLayout) getActivity().findViewById(R.id.score_counter_id);
+        about_LL = (LinearLayout) getActivity().findViewById(R.id.about_id);
+        setting_LL = getActivity().findViewById(R.id.setting_id);
+        clock_LL = getActivity().findViewById(R.id.clock_id);
+        message_LL = getActivity().findViewById(R.id.msg_id);
+        my_homepage_LL = getActivity().findViewById(R.id.my_homepage_id);
+        follow_LL = getActivity().findViewById(R.id.follow_id);
+        video_LL = getActivity().findViewById(R.id.video_id);
+        security_LL = getActivity().findViewById(R.id.security_id);
+        help_Ll = getActivity().findViewById(R.id.help_id);
         user_image_IV = (ImageView) getActivity().findViewById(R.id.user_image);
         user_name_TV = (TextView) getActivity().findViewById(R.id.user_name);
         user_signature_TV = (TextView) getActivity().findViewById(R.id.user_signature);
-        user_info_head.setOnClickListener(this);
+
+
+        user_info_head_LL.setOnClickListener(this);
         score_counter_LL.setOnClickListener(this);
-
-
-        loadUser();
+        about_LL.setOnClickListener(this);
+        setting_LL.setOnClickListener(this);
+        clock_LL.setOnClickListener(this);
+        message_LL.setOnClickListener(this);
+        my_homepage_LL.setOnClickListener(this);
+        follow_LL.setOnClickListener(this);
+        video_LL.setOnClickListener(this);
+        security_LL.setOnClickListener(this);
+        help_Ll.setOnClickListener(this);
 
     }
 
@@ -84,6 +115,42 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.score_counter_id:
                 to_Score_Counter();
                 break;
+            case R.id.about_id:
+//                Toast.makeText(getActivity(), "关于", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), AboutActivity.class));
+                break;
+            case R.id.clock_id:
+//                Toast.makeText(getActivity(), "收藏", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), ClockActivity.class));
+                break;
+            case R.id.msg_id:
+//                Toast.makeText(getActivity(), "消息", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), MessageActivity.class));
+                break;
+            case R.id.my_homepage_id:
+//                Toast.makeText(getActivity(), "我的主页", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), UserHomePageActivity.class));
+                break;
+            case R.id.follow_id:
+//                Toast.makeText(getActivity(), "关注", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), FollowActivity.class));
+                break;
+            case R.id.video_id:
+                Toast.makeText(getActivity(), "暂不支持，程序猿正在赶工...", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.security_id:
+//                Toast.makeText(getActivity(), "安全", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), SecurityActivity.class));
+                break;
+            case R.id.setting_id:
+//                Toast.makeText(getActivity(), "设置", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
+            case R.id.help_id:
+//                Toast.makeText(getActivity(), "帮助", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), HelpActivity.class));
+                break;
+
         }
     }
 
@@ -132,7 +199,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             user_name_TV.setText(user_name);
             user_signature_TV.setText(user_signature);
         } else {
-            user_image_IV.setImageResource(R.mipmap.ic_logo);
+            user_image_IV.setImageResource(R.drawable.ic_user_icon);
             user_name_TV.setText("未登录");
             user_signature_TV.setText("请先登录...");
         }

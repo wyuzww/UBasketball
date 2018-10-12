@@ -9,33 +9,62 @@
     <LinearLayout
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/fragmentcolor"
+
+        android:layout_marginBottom="5dp"
         android:layout_alignParentBottom="true">
 
-        <TextView
-            android:id="@+id/txt_main"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/tab_menu_main_img"
-            android:gravity="center"
-            android:drawablePadding="0dp"
-            android:paddingTop="5dp"
-            android:text="首页" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txt_clock"
+            <TextView
+                android:id="@+id/txt_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/tab_menu_main_img"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="首页" />
+
+            <CheckBox
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ic_red_point"
+                android:button="@null" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="0dp"
-            android:drawableTop="@drawable/tab_menu_clock_img"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="收藏" />
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/txt_mood"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/tab_menu_mood_img"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="动态" />
+
+            <CheckBox
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ic_red_point"
+                android:button="@null" />
+        </RelativeLayout>
         <ImageView
             android:id="@+id/txt_add"
             android:layout_width="0dp"
@@ -44,27 +73,110 @@
             android:padding="5dp"
             android:src="@drawable/tab_menu_add_img" />
 
-        <TextView
-            android:id="@+id/txt_search"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="0dp"
-            android:drawableTop="@drawable/tab_menu_search_img"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="搜索" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txt_user"
+            <TextView
+                android:id="@+id/txt_find"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/tab_menu_find_img"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="发现" />
+
+            <CheckBox
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:visibility="visible"
+                android:background="@drawable/ic_red_point"
+                android:button="@null" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="0dp"
-            android:drawableTop="@drawable/tab_menu_user_img"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="我" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/tab_menu_user_img"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="我" />
+
+            <CheckBox
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ic_red_point"
+                android:visibility="visible"
+                android:button="@null" />
+        </RelativeLayout>
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_main"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawableTop="@drawable/tab_menu_main_img"-->
+        <!--android:gravity="center"-->
+        <!--android:drawablePadding="0dp"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:text="首页" />-->
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_mood"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawablePadding="0dp"-->
+        <!--android:drawableTop="@drawable/tab_menu_mood_img"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:text="动态" />-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/txt_add"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:padding="5dp"-->
+        <!--android:src="@drawable/tab_menu_add_img" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_find"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawablePadding="0dp"-->
+        <!--android:drawableTop="@drawable/tab_menu_find_img"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:text="发现" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_user"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawablePadding="0dp"-->
+        <!--android:drawableTop="@drawable/tab_menu_user_img"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:text="我" />-->
     </LinearLayout>
 
     <LinearLayout
