@@ -279,5 +279,16 @@ public class Utils {
         }
     }
 
+    public void setFullScreenCustomColor(Window window, Integer color_id) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = window.getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.setStatusBarColor(decorView.getResources().getColor(color_id));
+        }
+    }
+
+
+
+
 
 }
