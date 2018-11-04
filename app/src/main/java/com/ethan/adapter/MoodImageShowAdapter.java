@@ -2,16 +2,14 @@ package com.ethan.adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.ethan.R;
-import com.ethan.activity.other.ImageDisplayActivity;
+import com.ethan.util.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -61,16 +59,20 @@ public class MoodImageShowAdapter extends BaseAdapter {
                 .placeholder(R.drawable.ic_basketball)
                 .error(R.drawable.ic_basketball)
 //                .fit()
+                .centerCrop()
+                .resize(800, 800)
+
 //                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .into(holder.imageView);
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, String.valueOf(imageList.size()), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, ImageDisplayActivity.class);
-                intent.putExtra("image_uri", url);
-                context.startActivity(intent);
+//                Toast.makeText(context, String.valueOf(imageList.size()), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context, ImageDisplayActivity.class);
+//                intent.putExtra("image_uri", url);
+//                context.startActivity(intent);
+                new Utils().toShowImage(context, url);
             }
         });
 

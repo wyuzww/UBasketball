@@ -44,7 +44,7 @@ public class HelpActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.commit_ok_id:
-                Toast.makeText(this, bug_title_ET.getText().toString() + "\n" + bug_content_ET.getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "暂不可用！", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

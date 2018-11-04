@@ -82,12 +82,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            View decorView = getWindow().getDecorView();
-//            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
-//        }
-
         new Utils().setFullScreen(getWindow());
 
         bindView();
@@ -130,33 +124,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         user_info_preferences = this.getSharedPreferences("UserInfo", 0);
         user_number = user_info_preferences.getString("user_number", "user_temp");
         user_image = user_info_preferences.getString("user_image", "userImage/" + user_number + ".jpg");
-//        final File file = new File("/sdcard/UBasketball/"+user_number+"/user_image/"+user_number+".jpg");
 
-//        final File file = new File(getExternalFilesDir("userImage"), user_number + ".jpg");
-//
-//        //user_image_IV.setImageBitmap();//头像
-//        if (file.exists()) {
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Picasso.with(UserInfoActivity.this).invalidate(file);
-//                    Picasso.with(UserInfoActivity.this).load(file)
-//                            .into(user_image_IV);
-//                }
-//            });
-//
-//        } else {
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {//http://192.168.43.196/UBasketball/     "http://wyuzww.nat123.net/UBasketball/userImage/13612250853.jpg"
-//                    Picasso.with(UserInfoActivity.this).invalidate("http://192.168.43.196/UBasketball/userImage/13612250853.jpg");
-//                    Picasso.with(UserInfoActivity.this).load("http://192.168.43.196/UBasketball/userImage/13612250853.jpg")
-//                            .error(R.mipmap.ic_logo)
-//                            .placeholder(R.mipmap.ic_logo)
-//                            .into(user_image_IV);
-//                }
-//            });
-//        }
         new Utils().findUserImage(user_image, user_number, this, user_image_IV);
 
         user_name_head_TV.setText(user_info_preferences.getString("user_name", ""));
@@ -282,7 +250,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 MultipartBody.Builder body = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM);
                 if (mImageFile != null) {
-                    body.addFormDataPart("userImage", mImageFile.getName(), RequestBody.create(MediaType.parse("image/jpg"), new Utils().compressImage(mImageFile)));
+                    body.addFormDataPart("userImage", mImageFile.getName(), RequestBody.create(MediaType.parse("image/jpg"), new Utils().compressImage(this, mImageFile, mImageFile)));
 
                 }
                 //.addPart(Headers.of("Content-Disposition","form-data;name=\"user_token\""),RequestBody.create(null,user_info_preferences.getString("user_token", "")))
@@ -449,97 +417,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-//    private void changeImage() {
-//        new AlertDialog.Builder(UserInfoActivity.this)
-//                .setItems(new String[]{"拍照", "相册"}, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (which == 0) {
-//                            mImageFile = new Utils().createImageFile(UserInfoActivity.this, mImageFile, "tempImage", user_number);
-//                            if (!mImageFile.isFile()) {
-//                                Toast.makeText(UserInfoActivity.this, "没找到SD卡，无法使用该功能", Toast.LENGTH_SHORT).show();
-//                                return;
-//                            }
-//
-//                            Intent Mintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//                            //添加判断SDK,Android7.0以上需要用FileProvider和addFlag
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                                photoUri = FileProvider.getUriForFile(
-//                                        UserInfoActivity.this,
-//                                        "com.ethan",
-//                                        mImageFile);
-//                                Mintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                            } else {
-//                                photoUri = Uri.fromFile(mImageFile);
-//                            }
-//
-//                            Mintent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-//                            startActivityForResult(Mintent, 102);
-//
-//                        } else {
-//                            mImageFile = new Utils().createImageFile(UserInfoActivity.this, mImageFile, "tempImage", user_number);
-//                            if (!mImageFile.isFile()) {
-//                                Toast.makeText(UserInfoActivity.this, "没找到SD卡，无法使用该功能", Toast.LENGTH_SHORT).show();
-//                                return;
-//                            }
-////                            Intent Gintent = new Intent(Intent.ACTION_PICK,
-////                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);// 调用系统图库
-//                            Intent Gintent = new Intent(Intent.ACTION_PICK);
-//                            Gintent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//                            startActivityForResult(Gintent, 101);
-//                        }
-//                    }
-//                }).create().show();
-//    }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//            changeImage();
-//        } else {
-//            // 没有获取 到权限，从新请求，或者关闭app
-//            Toast.makeText(this, "需要存储权限", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 101 && resultCode == RESULT_OK) {
-//            if (data != null) {
-//                Uri uri = data.getData();
-////                Toast.makeText(this,"请进行裁剪",Toast.LENGTH_SHORT).show();
-//                startPhotoZoom(uri);// 裁剪图片
-//            } else {
-//                Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
-//            }
-//        } else if (requestCode == 102 && resultCode == RESULT_OK) {
-//            Uri uri = photoUri;
-////            Toast.makeText(this,"请进行裁剪",Toast.LENGTH_SHORT).show();
-//            startPhotoZoom(uri);// 裁剪图片
-//        } else if (requestCode == 100 && resultCode == RESULT_OK) {
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-////                    Picasso.with(UserInfoActivity.this).invalidate(mImageFile);//清除缓存
-//                    Picasso.with(UserInfoActivity.this).load(mImageFile).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(user_image_IV);
-//                }
-//            });
-//
-//        } else {
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Picasso.with(UserInfoActivity.this).invalidate(mImageFile);//清除缓存
-//                    Picasso.with(UserInfoActivity.this).load(new File(getExternalFilesDir("userImage"), user_number + ".jpg")).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(user_image_IV);
-//                }
-//            });
-//            mImageFile = null;
-//        }
-//    }
-
     private void changeSex() {
         final String[] sex = {"男", "女"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -568,132 +445,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         }, year, month, day).show();
     }
 
-    // 裁剪方法
-//    public void startPhotoZoom(Uri uri) {
-//        Intent intent = new Intent("com.android.camera.action.CROP");//调用系统裁剪器
-//        intent.setDataAndType(uri, "image/*");
-//        intent.putExtra("crop", "true");
-//        // aspectX aspectY 是宽高的比例
-//        intent.putExtra("aspectX", 1);
-//        intent.putExtra("aspectY", 1);
-//        // outputX outputY 是裁剪图片宽高
-//        intent.putExtra("outputX", 640);
-//        intent.putExtra("outputY", 640);
-//        //intent.putExtra("return-data", true);
-////        intent.putExtra("return-data", false);
-////        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-////        intent.putExtra("noFaceDetection", true);
-//        //添加判断SDK
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        }
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mImageFile));
-//        startActivityForResult(intent, 100);
-//    }
-
-    // 存储方法
-//    private void SaveImage(File temp_file,String type,String user_number) {
-////        Toast.makeText(this,"save1",Toast.LENGTH_SHORT).show();
-//        File userImage = null;
-//        userImage = createImageFile(userImage,type,user_number);
-//        FileInputStream inputStream = null;
-//        FileOutputStream outputStream = null;
-//
-//        byte[] bytes = new byte[1024];
-//        int lenth=0;
-//        try {
-//            if (!userImage.isFile()) {
-//                return;
-//            }
-//  //          Toast.makeText(this,"save2",Toast.LENGTH_SHORT).show();
-//            inputStream = new FileInputStream(temp_file);
-//            outputStream = new FileOutputStream(userImage);
-//            while ((lenth=inputStream.read(bytes)) > 0) {
-//                outputStream.write(bytes,0,lenth);
-//            }
-//    //        Toast.makeText(this,"save3",Toast.LENGTH_SHORT).show();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                inputStream.close();
-//                outputStream.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//    }
-
-//    private void applyChangeImage() {
-//
-//        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//
-//        if (Build.VERSION.SDK_INT >= 23) {
-//            int check = ContextCompat.checkSelfPermission(this, permissions[0]);
-//            // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-//            if (check == PackageManager.PERMISSION_GRANTED) {
-//                //调用相机
-//                changeImage();
-//            } else {
-//                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-//            }
-//        } else {
-//            changeImage();
-//        }
-//    }
-
-//    private File createImageFile(File mfile,String type,String user_number) {
-//        if (isSdcard()) {
-//            File file = getExternalFilesDir(type);
-//            mfile = new File(file.getPath(), user_number+".jpg");
-//            try {
-//                if (mfile.exists()) {
-//                    mfile.delete();
-//                    //getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,MediaStore.Images.Media.DATA + "=?",new String[]{mImageFile.getPath()});
-//
-//                }
-//                mfile.createNewFile();
-//                return mfile;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                Toast.makeText(this, "出错啦", Toast.LENGTH_SHORT).show();
-//                return null;
-//            }
-//
-//        } else {
-//            Toast.makeText(this, "找不到SD卡，容易造成数据丢失", Toast.LENGTH_LONG).show();
-//            return null;
-//        }
-////        File file = new File("/sdcard/UBasketball/"+user_number+"/temp_image/");
-////        file.mkdirs();//创建目录
-////        mImageFile = new File(file.getPath(), user_number+".jpg");
-////        try {
-////            if (mImageFile.exists()) {
-////                mImageFile.delete();
-////                //getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,MediaStore.Images.Media.DATA + "=?",new String[]{mImageFile.getPath()});
-////
-////            }
-//////            Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//////            scanIntent.setData(Uri.fromFile(new File(mImageFile.getPath())));
-//////            this.sendBroadcast(scanIntent);
-////            mImageFile.createNewFile();
-////        } catch (IOException e) {
-////            e.printStackTrace();
-////            Toast.makeText(this, "出错啦", Toast.LENGTH_SHORT).show();
-////        }
-//    }
-
-//    private boolean isSdcard() {
-//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
     private void clickImage() {
         if (edit_change_TV.getVisibility() == View.VISIBLE) {
             seeImage();
@@ -715,27 +466,11 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             new Utils().uploadUserImage(this, user_image, file, "userImage", user_number);
 
             String imagePath = new HttpClient().getURL() + user_image;
-            Intent intent = new Intent(UserInfoActivity.this, ImageDisplayActivity.class);
-            intent.putExtra("image_uri", imagePath);
-            startActivity(intent);
+//            Intent intent = new Intent(UserInfoActivity.this, ImageDisplayActivity.class);
+//            intent.putExtra("image_uri", imagePath);
+//            startActivity(intent);
+            new Utils().toShowImage(this, imagePath);
         }
-
-//        LayoutInflater inflater = LayoutInflater.from(this);
-//        View userImageDialog = inflater.inflate(R.layout.user_image_dialog, null); // 加载自定义的布局文件
-//        final AlertDialog dialog = new AlertDialog.Builder(this).create();
-//        ImageView userImage_dialog = (ImageView) userImageDialog.findViewById(R.id.large_userImage);
-        // 这个是加载网络图片的，可以是自己的图片设置方法
-//        new Utils().findUserImage(user_image, user_number, this, null);
-//        Picasso.with(this).invalidate("http://192.168.43.196/UBasketball/userImage/13612250853.jpg");
-//        Picasso.with(this).load("http://192.168.43.196/UBasketball/userImage/13612250853.jpg").placeholder(R.mipmap.ic_logo).error(R.mipmap.ic_logo).into(userImage_dialog);
-//        dialog.setView(userImageDialog); // 自定义dialog
-//        dialog.show();
-//// 点击布局文件（也可以理解为点击大图）后关闭dialog，这里的dialog不需要按钮
-//        userImageDialog.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View paramView) {
-//                dialog.cancel();
-//            }
-//        });
     }
 
 
@@ -756,8 +491,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     public void takeSuccess(TResult result) {
 
 //        String path = result.getImage().getOriginalPath();
-
-//        photoUri = Uri.parse(path);
+//
+//        photoUri = Uri.fromFile(new File(path));
 
         Picasso.with(UserInfoActivity.this).load(photoUri).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(user_image_IV);
 

@@ -1,6 +1,8 @@
 package com.ethan.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int user_id;
     private String user_number;
     private String user_image;

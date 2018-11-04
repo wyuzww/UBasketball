@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,19 +15,30 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ethan.R;
 import com.ethan.activity.MainActivity;
 import com.ethan.activity.mainfragment.NewsDisplayActvivity;
 import com.ethan.adapter.NewsAdapter;
 import com.ethan.entity.News;
+import com.ethan.util.network.HttpClient;
 
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MainFragment extends Fragment implements GestureDetector.OnGestureListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     private MainActivity.MyOnTouchListener onTouchListener;
     private GestureDetector gestureDetector;
+    private NewsAdapter newsAdapter;
     private boolean isShow = true;
     private boolean isNews = true;
     final int TOP = 1, BOTTOM = 2, LEFT = 3, RIGHT = 4;
@@ -35,8 +47,10 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
     private LinearLayout main_title_LL;
     private LinearLayout main_news_LL;
     private LinearLayout main_game_LL;
+    private LinearLayout game_LL;
     private TextView title_news_TV;
     private TextView title_game_TV;
+    private ListView listView;
     private SwipeRefreshLayout swipeRefresh_SR;
 
     private List<News> newsList = new ArrayList<>();
@@ -53,23 +67,11 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
         super.onActivityCreated(savedInstanceState);
         gestureDetector = new GestureDetector(getActivity(), this);
 
-        getNews();
+
         bindView();
 
-        NewsAdapter newsAdapter = new NewsAdapter(getActivity(), R.layout.news_item, newsList);
 
-        ListView listView = (ListView) getActivity().findViewById(R.id.main_listview);
-        listView.setAdapter(newsAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                News news = newsList.get(i);
-                Intent intent = new Intent(getActivity(), NewsDisplayActvivity.class);
-                intent.putExtra("news_url", news.getNews_url());
-                startActivity(intent);
-//                Toast.makeText(getActivity(), news.getNews_author(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        setNewsAdapter();
 
         onTouchListener = new MainActivity.MyOnTouchListener() {
             @Override
@@ -87,41 +89,142 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
         main_title_LL = getActivity().findViewById(R.id.main_line1);
         main_news_LL = getActivity().findViewById(R.id.main_line2);
         main_game_LL = getActivity().findViewById(R.id.main_line3);
+        game_LL = getActivity().findViewById(R.id.game_LL_id);
         title_news_TV = getActivity().findViewById(R.id.title_news_id);
         title_game_TV = getActivity().findViewById(R.id.title_game_id);
         swipeRefresh_SR = getActivity().findViewById(R.id.swipe_refresh_id);
 
 
+        game_LL.setOnClickListener(this);
         title_news_TV.setOnClickListener(this);
         title_game_TV.setOnClickListener(this);
         swipeRefresh_SR.setOnRefreshListener(this);
+        swipeRefresh_SR.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefresh_SR.setRefreshing(true);
+                getNews();
+            }
+        });
         swipeRefresh_SR.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.textSelectColor));
         swipeRefresh_SR.setColorSchemeResources(R.color.white);
 
     }
 
-    private void getNews() {
-        for (int i = 0; i < 5; i++) {
-            News news = new News(1, "就在刚刚！男篮国家队主帅之争落下帷幕，杜锋重回广东执教", "2018-09-26 16:46", "背身单打美如画",
-                    "http://mini.eastday.com/mobile/180926164603341.html",
-                    "http://01imgmini.eastday.com/mobile/20180926/20180926164603_40f5706f97e861a38bc6666da44d3dfc_2_mwpm_03200403.jpg",
-                    "http://01imgmini.eastday.com/mobile/20180926/20180926164603_40f5706f97e861a38bc6666da44d3dfc_3_mwpm_03200403.jpg",
-                    "http://01imgmini.eastday.com/mobile/20180926/20180926164603_40f5706f97e861a38bc6666da44d3dfc_1_mwpm_03200403.jpg");
-            newsList.add(news);
-            news = new News(2, "曾接受湖人试训，双二十数据仅次于姚明，如今他孑然退役默默无闻", "2018-09-27 20:13", "球盲",
-                    "http://mini.eastday.com/mobile/180927201328049.html",
-                    "http://04imgmini.eastday.com/mobile/20180927/20180927_ef8a95e2e322261f2c827ee0bae3cb52_cover_mwpm_03200403.jpg",
-                    "http://04imgmini.eastday.com/mobile/20180927/20180927_9ef516d9e9a370b2172a1324a7a2014f_cover_mwpm_03200403.jpg",
-                    "http://04imgmini.eastday.com/mobile/20180927/20180927_638425198f63301ef9658ce6add7f154_cover_mwpm_03200403.jpg");
-            newsList.add(news);
-            news = new News(3, "又一次拒绝勇士亿元报价，核心悍将离队，科尔：尊重他的决定", "2018-09-28 11:55", "体育讯",
-                    "http://mini.eastday.com/mobile/180928115531756.html",
-                    "http://09imgmini.eastday.com/mobile/20180928/20180928115531_49ea76a7edbc5f4bef56298a4ca04241_2_mwpm_03200403.jpg",
-                    "http://09imgmini.eastday.com/mobile/20180928/20180928115531_49ea76a7edbc5f4bef56298a4ca04241_1_mwpm_03200403.jpg",
-                    "http://09imgmini.eastday.com/mobile/20180928/20180928115531_49ea76a7edbc5f4bef56298a4ca04241_3_mwpm_03200403.jpg");
-            newsList.add(news);
-        }
+    private void setNewsAdapter() {
+        newsAdapter = new NewsAdapter(getActivity(), R.layout.news_item, newsList);
+
+        listView = (ListView) getActivity().findViewById(R.id.main_listview);
+        listView.setAdapter(newsAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                News news = newsList.get(i);
+                Intent intent = new Intent(getActivity(), NewsDisplayActvivity.class);
+                intent.putExtra("news_url", news.getNews_url());
+                startActivity(intent);
+//                Toast.makeText(getActivity(), news.getNews_author(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+    private void getNews() {
+        String url = "GetNews";
+        HttpClient httpClient = new HttpClient();
+        httpClient.request_Get(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (e instanceof SocketTimeoutException) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(), "连接超时", Toast.LENGTH_SHORT).show();
+                            swipeRefresh_SR.setRefreshing(false);
+                        }
+                    });
+                } else if (e instanceof ConnectException) {
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(), "无法连接到服务器", Toast.LENGTH_SHORT).show();
+                            swipeRefresh_SR.setRefreshing(false);
+                        }
+                    });
+                } else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(), "网络出错", Toast.LENGTH_SHORT).show();
+                            swipeRefresh_SR.setRefreshing(false);
+                        }
+                    });
+                }
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() == 200) {
+                    final String responseText = response.body().string();
+
+
+                    String string = JSONObject.parseObject(responseText).getString("news");
+
+                    final List<News> news = JSONObject.parseArray(string, News.class);
+                    Log.v("###", news.toString());
+
+
+                    final int code = JSONObject.parseObject(responseText).getInteger("code");
+                    final String msg = JSONObject.parseObject(responseText).getString("msg");
+
+                    if (msg.isEmpty() || msg.equals("")) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(), "无法连接到服务器", Toast.LENGTH_SHORT).show();
+                                swipeRefresh_SR.setRefreshing(false);
+                            }
+                        });
+                    } else if (code == 0) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+//                                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                                newsList.clear();
+                                for (int i = 0; i < news.size(); i++) {
+                                    newsList.add(news.get(i));
+                                }
+                                newsAdapter.notifyDataSetChanged();
+                                swipeRefresh_SR.setRefreshing(false);
+
+                            }
+                        });
+
+                    } else {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                                swipeRefresh_SR.setRefreshing(false);
+                            }
+                        });
+                    }
+
+                } else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(), "连接到服务器错误", Toast.LENGTH_SHORT).show();
+                            swipeRefresh_SR.setRefreshing(false);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+
 
 
     public void executeAction(int action) {
@@ -178,15 +281,6 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
         } else {
             return false;
         }
-//        if (distanceY>1) {
-//            executeAction(TOP);
-//        } else if (distanceY<1) {
-//            executeAction(BOTTOM);
-//        } else if (distanceX<1) {
-//            executeAction(LEFT);
-//        } else {
-//            executeAction(RIGHT);
-//        }
         return true;
     }
 
@@ -197,23 +291,12 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-//        float xExcursion = e1.getX() - e2.getX();
-//        float yExcursion = e1.getY() - e2.getY();
-//        if (yExcursion > 0 && Math.abs(yExcursion) > Math.abs(xExcursion)) {
-//            executeAction(TOP);
-//        } else if (yExcursion < 0 && Math.abs(yExcursion) > Math.abs(xExcursion)) {
-//            executeAction(BOTTOM);
-//        } else if (xExcursion > 0 && Math.abs(xExcursion) > Math.abs(yExcursion)) {
-//            executeAction(LEFT);
-//        } else {
-//            executeAction(RIGHT);
-//        }
         return false;
     }
 
     @Override
     public void onRefresh() {
-
+        getNews();
     }
 
     @Override
@@ -236,6 +319,9 @@ public class MainFragment extends Fragment implements GestureDetector.OnGestureL
                     main_news_LL.setVisibility(View.GONE);
                     main_game_LL.setVisibility(View.VISIBLE);
                 }
+                break;
+            case R.id.game_LL_id:
+                Toast.makeText(getActivity(), "暂不可用！", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

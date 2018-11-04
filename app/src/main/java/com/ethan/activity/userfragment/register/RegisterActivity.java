@@ -147,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Log.e("RegisterActivity", "验证验证码成功");
                         //Toast.makeText(RegisterActivity.this, "验证验证码成功", Toast.LENGTH_SHORT).show();
 
-                        checkUser(phoneNumber_ET.getText().toString().trim(), passwordNumber_ET.getText().toString().trim());
+                        toRegister(phoneNumber_ET.getText().toString().trim(), passwordNumber_ET.getText().toString().trim());
 
 
 //                        Intent intent = new Intent();
@@ -260,7 +260,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void checkUser(final String user_number, final String user_password) {
+    private void toRegister(final String user_number, final String user_password) {
 
         final ProgressDialog register_Dialog = new ProgressDialog(this);
         register_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

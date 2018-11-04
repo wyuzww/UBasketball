@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/mood_content_title_id"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/textSelectColor">
@@ -28,7 +29,46 @@
             android:background="@drawable/back" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/mood_content_bottom_id"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/get_expression_id"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_expression" />
+
+
+        <EditText
+            android:id="@+id/comment_text_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/on_click_selector"
+            android:gravity="left|center"
+            android:hint="输入你想要评论的内容"
+            android:textColor="@color/lessDark"
+            android:textCursorDrawable="@drawable/my_cursor"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/send_comment_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/grayless"
+            android:gravity="center"
+            android:text="发送" />
+    </LinearLayout>
+
     <ScrollView
+        android:layout_below="@+id/mood_content_title_id"
+        android:layout_above="@+id/mood_content_bottom_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -76,7 +116,7 @@
 
                         <ImageView
                             android:id="@+id/mood_user_sex_id"
-                            android:layout_width="20dp"
+                            android:layout_width="15dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="3dp"
@@ -112,7 +152,7 @@
                     android:padding="10dp"
                     android:text="就在刚刚！男篮国家队主帅之争落下帷幕，杜锋重回广东执教"
                     android:textColor="@color/Dark"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
 
@@ -224,101 +264,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp">
-
-                        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:layout_width="?attr/actionBarSize"
-                            android:layout_height="?attr/actionBarSize"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_user_icon"
-                            app:civ_border_color="@color/gray"
-                            app:civ_border_width="2dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:paddingLeft="10dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:text="背身单打美如画"
-                                    android:textColor="@color/lessDark"
-                                    android:textSize="13dp" />
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="3dp"
-                                    android:src="@drawable/ic_man" />
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:text="2018-09-26 16:46"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="12dp" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/mood_text_layout_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="75dp"
-                            android:text="就在刚刚！男篮国家队主帅之争落下帷幕，杜锋重回广东执教"
-                            android:textColor="@color/Dark"
-                            android:textSize="15dp" />
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ListView
+                    <com.ethan.util.view.MyListView
                         android:id="@+id/mood_comment_listview_id"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
 
-                    </ListView>
+                    </com.ethan.util.view.MyListView>
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/fragmentcolor"
+                    android:padding="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="没有更多评论了哦~~~" />
 
 
             </LinearLayout>
@@ -329,4 +292,4 @@
 
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

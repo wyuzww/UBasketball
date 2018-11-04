@@ -44,9 +44,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.jph.takephoto:takephoto_library:4.0.3'
-    //    implementation files('libs/MobCommons-2018.0704.1311.jar')
-    //    implementation files('libs/MobTools-2018.0704.1157.jar')
-    //    implementation files('libs/SDKWrapper-2018.0201.1609.jar')
-    //    implementation name:'SMSSDK-3.2.1',ext:"jar"
+    implementation 'com.github.open-android:JieCaoVideoPlayer:0.1.0'
 
 }

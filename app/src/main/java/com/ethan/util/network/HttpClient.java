@@ -15,7 +15,9 @@ public class HttpClient {
     String URL2 = "http://wyuzww.nat123.net/UBasketball/";//80端口映射ip
     String URL3 = "http://wyuzww.nat123.cc:17205/UBasketball/";//非80端口映射ip
     String URL4 = "http://192.168.1.104/UBasketball/";//校园网ip
-    String URL = URL4;
+    String URL5 = "http://39.108.164.118/UBasketball/";//阿里云ip
+    String URL6 = "http://wyuzww.top/UBasketball/";//阿里云域名
+    String URL = URL5;
 
 
     public void request_Get(String url, Callback callback) {

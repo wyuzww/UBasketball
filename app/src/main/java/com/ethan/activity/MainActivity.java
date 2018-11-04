@@ -30,6 +30,8 @@ import com.ethan.util.control.ActivityCollector;
 import java.util.ArrayList;
 import java.util.List;
 
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ArrayList<MyOnTouchListener> onTouchListeners = new ArrayList<MyOnTouchListener>(10);
 
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putInt("Fragement_index", fragement_index);
         outState.putBoolean("isDestroy", true);
     }
+
 
     private void initUI() {
         txt_main = (TextView) findViewById(R.id.txt_main);
@@ -222,6 +225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -240,9 +244,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (JCVideoPlayer.backPress()) {
+                return true;
+            }
             exit();
             return false;
         }
+
         return super.onKeyDown(keyCode, event);
     }
 
@@ -319,5 +327,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void unregisterMyOnTouchListener(MyOnTouchListener myOnTouchListener) {
         onTouchListeners.remove(myOnTouchListener);
     }
-
 }

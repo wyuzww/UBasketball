@@ -11,12 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ethan.R;
 import com.ethan.activity.userfragment.user.UserHomePageActivity;
 import com.ethan.entity.Mood;
-import com.ethan.util.network.HttpClient;
+import com.ethan.util.view.ListItemClickHelp;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,25 +24,28 @@ public class MoodAdapter extends ArrayAdapter<Mood> {
     private int resourceId;
     private Context context;
     private ArrayList<Mood> moodArrayList;
-    private ArrayList<Integer> clockArrayListi;
+    private ArrayList<Integer> clockArrayList;
     private ArrayList<Integer> loveArrayList;
+    private ListItemClickHelp callback;
 //    private int position;
 //    private boolean isLove = false;
 
-    public MoodAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Mood> moodArrayList, ArrayList<Integer> clockArrayListi, ArrayList<Integer> loveArrayListi) {
+    public MoodAdapter(@NonNull Context context, int resource, ListItemClickHelp callback, @NonNull ArrayList<Mood> moodArrayList, ArrayList<Integer> clockArrayList, ArrayList<Integer> loveArrayList) {
         super(context, resource, moodArrayList);
         this.context = context;
+        this.callback = callback;
         this.resourceId = resource;
         this.moodArrayList = moodArrayList;
-        this.clockArrayListi = clockArrayListi;
-        this.loveArrayList = loveArrayListi;
+        this.clockArrayList = clockArrayList;
+        this.loveArrayList = loveArrayList;
     }
+
 
     @NonNull
     @Override
-    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         ViewHolder viewHolder;
-        View view;
+        final View view;
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(resourceId, parent, false);
             viewHolder = new ViewHolder();
@@ -63,7 +65,7 @@ public class MoodAdapter extends ArrayAdapter<Mood> {
         }
 
         //初始化头像
-        Picasso.with(context).load(position % 2 == 0 ? new HttpClient().getURL() + "userImage/13612250853.jpg" : new HttpClient().getURL() + "userImage/13612250852.jpg")
+        Picasso.with(context).load(moodArrayList.get(position).getUser().getUser_image())
                 .error(R.drawable.ic_user_icon)
                 .placeholder(R.drawable.ic_user_icon)
 //                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
@@ -111,7 +113,7 @@ public class MoodAdapter extends ArrayAdapter<Mood> {
         } else {
             viewHolder.mood_love_TV.setText("点赞");
         }
-        if (!clockArrayListi.contains(moodArrayList.get(position).getMood_id())) {
+        if (!clockArrayList.contains(moodArrayList.get(position).getMood_id())) {
             viewHolder.mood_clock_TV.setSelected(false);
         } else {
             viewHolder.mood_clock_TV.setSelected(true);
@@ -126,44 +128,34 @@ public class MoodAdapter extends ArrayAdapter<Mood> {
         viewHolder.mood_user_image_IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, UserHomePageActivity.class));
-                Toast.makeText(context, "用户 " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, UserHomePageActivity.class);
+                intent.putExtra("user", moodArrayList.get(position).getUser());
+                context.startActivity(intent);
+//                context.startActivity(new Intent(context, UserHomePageActivity.class));
+//                Toast.makeText(context, "用户 " + String.valueOf(position), Toast.LENGTH_SHORT).show();
             }
         });
         viewHolder.mood_clock_TV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, String.valueOf(moodArrayList.get(position).getMood_images_url().size()), Toast.LENGTH_SHORT).show();
-                if (!v.isSelected()) {
-                    clockArrayListi.add(moodArrayList.get(position).getMood_id());
-                    moodArrayList.get(position).setMood_clocks_amount(moodArrayList.get(position).getMood_clocks_amount() + 1);
-                } else {
-                    clockArrayListi.remove(clockArrayListi.lastIndexOf(moodArrayList.get(position).getMood_id()));
-                    moodArrayList.get(position).setMood_clocks_amount(moodArrayList.get(position).getMood_clocks_amount() - 1);
-                }
-                notifyDataSetChanged();
+                callback.onClick(position, v);
+
+
             }
         });
-        viewHolder.mood_comment_TV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(context,"评论",Toast.LENGTH_SHORT).show();
-                moodArrayList.get(position).setMood_comments_amount(moodArrayList.get(position).getMood_comments_amount() + 1);
-                notifyDataSetChanged();
-            }
-        });
+//        viewHolder.mood_comment_TV.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Toast.makeText(context,"评论",Toast.LENGTH_SHORT).show();
+//                moodArrayList.get(position).setMood_comments_amount(moodArrayList.get(position).getMood_comments_amount() + 1);
+//                notifyDataSetChanged();
+//            }
+//        });
         viewHolder.mood_love_TV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                callback.onClick(position, v);
                 //Toast.makeText(context,"点赞",Toast.LENGTH_SHORT).show();
-                if (!v.isSelected()) {
-                    loveArrayList.add(moodArrayList.get(position).getMood_id());
-                    moodArrayList.get(position).setMood_loves_amount(moodArrayList.get(position).getMood_loves_amount() + 1);
-                } else {
-                    loveArrayList.remove(loveArrayList.lastIndexOf(moodArrayList.get(position).getMood_id()));
-                    moodArrayList.get(position).setMood_loves_amount(moodArrayList.get(position).getMood_loves_amount() - 1);
-                }
-                notifyDataSetChanged();
             }
         });
 

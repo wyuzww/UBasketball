@@ -28,7 +28,7 @@
 
         <TextView
             android:layout_width="1dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/gray" />
 
         <TextView
@@ -50,6 +50,7 @@
         android:id="@+id/main_line2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         android:layout_below="@id/main_line1">
         <!-- 添加一个ListView控件 -->
         <android.support.v4.widget.SwipeRefreshLayout
@@ -69,12 +70,106 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:layout_below="@id/main_line1">
+        android:layout_below="@id/main_line1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/game_LL_id"
+            android:background="@drawable/on_click_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="大三计算机学院班级赛"
+                    android:textColor="@color/Dark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:textColor="@color/textSelectColor"
+                    android:text="160802班"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="50"
+                    android:textSize="20dp"
+                    android:textColor="@color/Red" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/Dark"
+                    android:textSize="20dp"
+                    android:text=":" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="2"
+                    android:textColor="@color/Red"
+                    android:textSize="20dp"
+                    android:text="52" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:textSize="15dp"
+                    android:textColor="@color/textSelectColor"
+                    android:text="160803班" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="2018-09-26 16:46" />
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grayless" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="没有比赛记录" />
+            android:layout_marginTop="10dp"
+            android:text="没有更多比赛记录了~~~" />
     </LinearLayout>
 </RelativeLayout>

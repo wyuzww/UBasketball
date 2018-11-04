@@ -55,11 +55,11 @@
 
                 <TextView
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/gray" />
 
                 <TextView
-                    android:id="@+id/title_mood_mine_id"
+                    android:id="@+id/title_mood_myfollow_id"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
@@ -68,7 +68,7 @@
                     android:gravity="left|center_vertical"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="我的动态"
+                    android:text="我的关注"
                     android:textColor="@color/white"
                     android:textSize="15dp" />
 
@@ -90,10 +90,16 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/mood_line1">
                 <!-- 添加一个ListView控件 -->
-                <ListView
-                    android:id="@+id/mood_listview"
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/mood_swipe_refresh_id"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent">
+
+                    <ListView
+                        android:id="@+id/mood_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </android.support.v4.widget.SwipeRefreshLayout>
 
             </LinearLayout>
 

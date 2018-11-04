@@ -38,6 +38,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/ic_red_point"
+                android:visibility="gone"
                 android:button="@null" />
         </RelativeLayout>
 
@@ -56,12 +57,13 @@
                 android:text="动态" />
 
             <CheckBox
+                android:id="@+id/mood_red_point_id"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/ic_red_point"
                 android:button="@null" />
         </RelativeLayout>
@@ -94,7 +96,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:background="@drawable/ic_red_point"
                 android:button="@null" />
         </RelativeLayout>
@@ -121,7 +123,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/ic_red_point"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:button="@null" />
         </RelativeLayout>
 

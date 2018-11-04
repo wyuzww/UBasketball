@@ -16,8 +16,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/user_image_id"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_user_icon"
             app:civ_border_color="@color/gray"
@@ -41,17 +41,17 @@
                     android:id="@+id/user_name_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="1dp"
                     android:text="背身单打美如画"
                     android:textColor="@color/lessDark"
                     android:textSize="13dp" />
 
                 <ImageView
                     android:id="@+id/user_sex_id"
-                    android:layout_width="20dp"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="1dp"
                     android:src="@drawable/ic_man" />
             </LinearLayout>
 
@@ -64,7 +64,7 @@
                     android:id="@+id/user_signature_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="1dp"
                     android:text="该用户还没有个性签名..."
                     android:textColor="@color/textColor"
                     android:textSize="12dp" />
@@ -93,7 +93,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray" />
+        android:layout_marginTop="5dp"
+        android:background="@color/grayless" />
 
 
 </LinearLayout>

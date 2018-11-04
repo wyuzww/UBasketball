@@ -2,6 +2,7 @@ package com.ethan.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,8 +11,13 @@ import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ethan.R;
+import com.ethan.activity.other.ImageDisplayActivity;
+import com.ethan.adapter.MoodAdapter;
+import com.ethan.entity.Mood;
 import com.ethan.entity.User;
 import com.ethan.util.network.HttpClient;
 import com.squareup.picasso.MemoryPolicy;
@@ -25,15 +31,38 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.Response;
 
 public class Utils {
     private SharedPreferences user_info_preferences;
     private SharedPreferences.Editor editor;
+    private User user;
 
+    public User getUser(Context context) {
+        if (user == null) {
+            user_info_preferences = context.getSharedPreferences("UserInfo", 0);
+            int user_id = user_info_preferences.getInt("user_id", 0);
+            String user_number = user_info_preferences.getString("user_number", "user_temp");
+            String user_image = user_info_preferences.getString("user_image", "userImage/" + user_number + ".jpg");
+            String user_name = user_info_preferences.getString("user_name", "");
+            String user_sex = user_info_preferences.getString("user_sex", "");
+            String user_birth = user_info_preferences.getString("user_birth", "");
+            String user_signature = user_info_preferences.getString("user_signature", "");
+            String user_token = user_info_preferences.getString("user_token", "0");
+            user = new User(user_id, user_number, new HttpClient().getURL() + user_image, user_name, null, user_sex, user_birth, user_signature, user_token);
+        }
+        return user;
+    }
+
+    public boolean isLogined(Context context) {
+        user_info_preferences = context.getSharedPreferences("UserInfo", 0);
+        return user_info_preferences.getBoolean("isLogined", false);
+    }
 
     public void saveUser(Context context, User user) {
         user_info_preferences = context.getSharedPreferences("UserInfo", 0);
@@ -236,11 +265,10 @@ public class Utils {
         });
     }
 
-    public File compressImage(File file) {
-
+    public File compressImage(Context context, File inFile, File outFile) {
         try {
             Bitmap bitmap = null;
-            InputStream inputStream = new FileInputStream(file);
+            InputStream inputStream = new FileInputStream(inFile);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true; // 只获取图片的大小信息，而不是将整张图片载入在内存中，避免内存溢出//
 //                BitmapFactory.decodeStream(inputStream,null, options);
@@ -256,7 +284,7 @@ public class Utils {
             options.inSampleSize = inSampleSize; // 设置为刚才计算的压缩比例
             bitmap = BitmapFactory.decodeStream(inputStream, null, options); // 解码文件
             inputStream.close();
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            FileOutputStream fileOutputStream = new FileOutputStream(outFile);
             //将bitmap存储为jpg格式的图片
             if (bitmap != null) {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fileOutputStream);
@@ -268,7 +296,7 @@ public class Utils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return file;
+        return outFile;
     }
 
     public void setFullScreen(Window window) {
@@ -287,8 +315,224 @@ public class Utils {
         }
     }
 
+    public void toShowImage(Context context, String url) {
+        Intent intent = new Intent(context, ImageDisplayActivity.class);
+        intent.putExtra("image_uri", url);
+        context.startActivity(intent);
+    }
 
 
+    public static void setClock(final Activity activity, int user_id, int mood_id, final int position, final ArrayList<Mood> moodArrayList, final ArrayList<Integer> clockArrayList, final MoodAdapter moodAdapter) {
+        String url = "SetInteger";
+        FormBody formBody = new FormBody.Builder()
+                .add("clock_user_id", String.valueOf(user_id))
+                .add("clock_mood_id", String.valueOf(mood_id))
+                .build();
+        HttpClient httpClient = new HttpClient();
+        httpClient.request_Post(url, formBody, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() == 200) {
+                    final String responseText = response.body().string();
+
+                    final int code = JSONObject.parseObject(responseText).getInteger("code");
+                    final String msg = JSONObject.parseObject(responseText).getString("msg");
+                    if (code == 0) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                                clockArrayList.add(moodArrayList.get(position).getMood_id());
+                                moodArrayList.get(position).setMood_clocks_amount(moodArrayList.get(position).getMood_clocks_amount() + 1);
+                                moodAdapter.notifyDataSetChanged();
+                            }
+                        });
 
 
+                    } else {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                } else {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity, "网络出错", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
+    public static void deleteClock(final Activity activity, int user_id, int mood_id, final int position, final ArrayList<Mood> moodArrayList, final ArrayList<Integer> clockArrayList, final MoodAdapter moodAdapter) {
+        String url = "DeleteInteger";
+        FormBody formBody = new FormBody.Builder()
+                .add("clock_user_id", String.valueOf(user_id))
+                .add("clock_mood_id", String.valueOf(mood_id))
+                .build();
+        HttpClient httpClient = new HttpClient();
+        httpClient.request_Post(url, formBody, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() == 200) {
+                    final String responseText = response.body().string();
+                    final int code = JSONObject.parseObject(responseText).getInteger("code");
+                    final String msg = JSONObject.parseObject(responseText).getString("msg");
+                    if (code == 0) {
+
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                                clockArrayList.remove(clockArrayList.lastIndexOf(moodArrayList.get(position).getMood_id()));
+                                moodArrayList.get(position).setMood_clocks_amount(moodArrayList.get(position).getMood_clocks_amount() - 1);
+                                moodAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+                    } else {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                } else {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity, "网络出错", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
+    public static void setLove(final Activity activity, int user_id, int mood_id, final int position, final ArrayList<Mood> moodArrayList, final ArrayList<Integer> loveArrayList, final MoodAdapter moodAdapter) {
+        String url = "SetInteger";
+        FormBody formBody = new FormBody.Builder()
+                .add("love_user_id", String.valueOf(user_id))
+                .add("love_mood_id", String.valueOf(mood_id))
+                .build();
+        HttpClient httpClient = new HttpClient();
+        httpClient.request_Post(url, formBody, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() == 200) {
+                    final String responseText = response.body().string();
+
+                    final int code = JSONObject.parseObject(responseText).getInteger("code");
+                    final String msg = JSONObject.parseObject(responseText).getString("msg");
+                    if (code == 0) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                                loveArrayList.add(moodArrayList.get(position).getMood_id());
+                                moodArrayList.get(position).setMood_loves_amount(moodArrayList.get(position).getMood_loves_amount() + 1);
+                                moodAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+
+                    } else {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                } else {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity, "网络出错", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
+    public static void deleteLove(final Activity activity, int user_id, int mood_id, final int position, final ArrayList<Mood> moodArrayList, final ArrayList<Integer> loveArrayList, final MoodAdapter moodAdapter) {
+        String url = "DeleteInteger";
+        FormBody formBody = new FormBody.Builder()
+                .add("love_user_id", String.valueOf(user_id))
+                .add("love_mood_id", String.valueOf(mood_id))
+                .build();
+        HttpClient httpClient = new HttpClient();
+        httpClient.request_Post(url, formBody, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() == 200) {
+                    final String responseText = response.body().string();
+                    final int code = JSONObject.parseObject(responseText).getInteger("code");
+                    final String msg = JSONObject.parseObject(responseText).getString("msg");
+                    if (code == 0) {
+
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                                loveArrayList.remove(loveArrayList.lastIndexOf(moodArrayList.get(position).getMood_id()));
+                                moodArrayList.get(position).setMood_loves_amount(moodArrayList.get(position).getMood_loves_amount() - 1);
+                                moodAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+                    } else {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                } else {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity, "网络出错", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
+    }
 }

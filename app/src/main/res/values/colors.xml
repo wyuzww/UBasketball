@@ -12,6 +12,8 @@
     <color name="fragmentcolor">#F1F1F1</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="manhomepage">#b3e5f9</color>
+    <color name="womanhomepage">#fac2e7</color>
     <color name="textColor">#8a8a8a</color>
     <color name="Red">#ff3333</color>
     <color name="textSelectColor">#1296db</color>

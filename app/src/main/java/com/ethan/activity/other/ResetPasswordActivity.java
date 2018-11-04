@@ -54,11 +54,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            View decorView = getWindow().getDecorView();
-//            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
-//        }
+
         new Utils().setFullScreen(getWindow());
         bindView();
         initEventHandler();
@@ -147,20 +143,8 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                         Log.e("RegisterActivity", "验证验证码成功");
                         Toast.makeText(ResetPasswordActivity.this, "重置密码成功", Toast.LENGTH_SHORT).show();
 
-//                        checkUser(phoneNumber_ET.getText().toString().trim(), passwordNumber_ET.getText().toString().trim());
+                        toResetPassword(phoneNumber_ET.getText().toString().trim(), passwordNumber_ET.getText().toString().trim());
 
-
-//                        Intent intent = new Intent();
-//                   //     Bundle bundle = new Bundle();
-//                        intent.putExtra("phone", phoneNumber_ET.getText().toString().trim());
-//                        intent.putExtra("password", passwordNumber_ET.getText().toString().trim());
-//                        setResult(RESULT_OK,intent);
-//                        finish();
-                        //  bundle.putString("phone", phoneNumber_ET.getText().toString().trim());
-                        //   bundle.putString("password", passwordNumber_ET.getText().toString().trim());
-                        //   intent.putExtras(bundle);
-                        //intent.putExtra("password",passwordNumber_ET.getText().toString().trim());
-                        //    startActivity(intent);
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) { //获取验证码成功
                         Log.e("RegisterActivity", "获取验证码成功");
                         Toast.makeText(ResetPasswordActivity.this, "获取验证码成功", Toast.LENGTH_SHORT).show();
@@ -260,13 +244,13 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void checkUser(final String user_number, final String user_password) {
+    private void toResetPassword(final String user_number, final String user_password) {
 
         final ProgressDialog register_Dialog = new ProgressDialog(this);
         register_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         register_Dialog.setCancelable(false);
         register_Dialog.setCanceledOnTouchOutside(false);
-        register_Dialog.setMessage("正在注册...");
+        register_Dialog.setMessage("正在重置密码...");
         register_Dialog.show();
 
 //        String url = "http://wyuzww.nat123.net/UBasketball/register";
